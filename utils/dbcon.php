@@ -42,7 +42,7 @@ class DatabaseConn
     }
   }
 
-  public function auth($email, $pw): bool
+  public function auth(string $email, string $pw): bool
   {
     if (!($this->conn instanceof mysqli)) return false;
     if ($this->validate($email, $pw)) {
@@ -66,7 +66,7 @@ class DatabaseConn
     return false;
   }
 
-  public function requestAccount($email, $pw): ?string
+  public function requestAccount(string $email, string $pw, int $expire_delay): ?string
   {
     if (!($this->conn instanceof mysqli)) return null;
     if ($this->validate($email, $pw)) {
@@ -83,14 +83,15 @@ class DatabaseConn
           ($this->conn)->rollback();
           return null;
         }
-        $q2 = 'INSERT INTO pending_account (email, password, token) VALUES (?, ?, ?);';
+        $q2 = 'INSERT INTO pending_account (email, password, token, expire) VALUES (?, ?, ?, ?);';
         $hashed = password_hash($pw, PASSWORD_BCRYPT, ['cost' => 12]);
         $token = '';
         for ($i = 0; $i < 8; $i++) {
           $token = $token . str_pad(base_convert(rand(1, 0x7fffffff), 10, 36), 6, '0', STR_PAD_LEFT);
         }
+        $expire = time() + $expire_delay;
         $stmt2 = $this->conn->prepare($q2);
-        $stmt2->bind_param('sss', $email, $hashed, $token);
+        $stmt2->bind_param('sssi', $email, $hashed, $token, $expire);
         $status = $stmt2->execute();
         $stmt2->close();
         ($this->conn)->commit();
@@ -107,14 +108,15 @@ class DatabaseConn
     return null;
   }
 
-  public function activateAccount($email, $token): bool
+  public function activateAccount(string $email, string $token): bool
   {
     if (!($this->conn instanceof mysqli)) return false;
     ($this->conn)->begin_transaction();
     try {
-      $q = 'SELECT password FROM pending_account WHERE email=? AND token=?';
+      $q = 'SELECT password FROM pending_account WHERE email=? AND token=? AND expire>?';
       $stmt = $this->conn->prepare($q);
-      $stmt->bind_param('ss', $email, $token);
+      $expire = time();
+      $stmt->bind_param('ssi', $email, $token, $expire);
       $stmt->execute();
       $stmt->store_result();
       $rowcount = $stmt->num_rows;

@@ -1,4 +1,7 @@
 <?php
+require_once('utils/auth.php');
+checkAuth();
+
 require_once "vendor/autoload.php";
 use thiagoalessio\TesseractOCR\TesseractOCR;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

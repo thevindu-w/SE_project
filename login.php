@@ -2,7 +2,10 @@
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['logout'])) {
     session_start();
     $_SESSION['logged_in'] = false;
+    $_SESSION['target'] = null;
     session_write_close();
+    header('Location: /login.php');
+    die();
 }
 session_start();
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
@@ -21,12 +24,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($dbcon->auth($email, $password)) {
             session_start();
             $_SESSION['logged_in'] = true;
+            $target = '/index.php';
+            if (isset($_SESSION['target']) && $_SESSION['target'] != null) {
+                $target = $_SESSION['target'];
+            }
+            $_SESSION['target'] = null;
             session_write_close();
-            header('Location: /index.php');
-        } else {
-            header('Location: /login.php');
+            header('Location: ' . $target);
+            die();
         }
     }
+    header('Location: /login.php');
     die();
 } else {
 ?>
@@ -35,11 +43,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <body>
         <form method="post">
             Email :
-            <input type="email" name="email" /><br>
+            <input type="email" name="email" value="<?php if (isset($_GET['email']) && $_GET['email']) {
+                                                        echo $_GET['email'];
+                                                    } ?>" /><br>
             Password :
             <input type="password" name="password" /><br>
             <button type="submit">Login</button>
         </form>
+        <p>Don't have an account? <a href="/signup.php">Signup</a></p>
     </body>
 
     </html>

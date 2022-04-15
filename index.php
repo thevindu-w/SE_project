@@ -1,10 +1,6 @@
 <?php
-session_start();
-if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
-    session_write_close();
-    header('Location: /login.php');
-    die();
-}
+require_once('utils/auth.php');
+checkAuth();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$text = $_POST['text'];
