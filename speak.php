@@ -6,9 +6,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $text = $_POST['text'];
     $lang = $_POST['lang'];
 
-    // echo json_encode(["text" => $text]);
-    // die();
     $fname = "tmp/audio.mp3";
+    unlink($fname);
+    
     $out = fopen($fname, "wb");
     if ($out == FALSE) {
         die();
@@ -38,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     fclose($out);
 
     if ($error) {
-        echo "cURL Error #:" . $error;
         die();
     }
 
@@ -70,13 +69,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <body>
         <form method="post">
-            <textarea name="text">This is a sample text.</textarea><br>
+            <textarea id="txtArea" name="text">This is a sample text.</textarea><br>
             <select id="lang" name="lang">
                 <option value="en-US">English</option>
                 <option value="fr-FR">French</option>
             </select><br>
             <button id="sendbtn">submit</button><br>
         </form>
+        <script src="/script.js"></script>
+        <script type="text/javascript">
+            document.getElementById('sendbtn').onclick = e => {
+                e.preventDefault();
+                let builder = new XHRBuilder();
+                builder.addField('text', document.getElementById("txtArea").textContent);
+                builder.addField('lang', "en-US");
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", document.URL, true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.responseType = 'blob';
+                xhr.onreadystatechange = async function() {
+                    if (xhr.readyState == XMLHttpRequest.DONE) {
+                        let cont_type = xhr.getResponseHeader('Content-Type');
+                        if (cont_type === 'audio/mpeg') {
+                            let blob = new Blob([this.response], {
+                                type: 'audio/mpeg'
+                            });
+                            let aud = document.createElement("audio");
+                            aud.style = "display: none";
+                            document.body.appendChild(aud);
+                            let url = window.URL.createObjectURL(blob);
+                            aud.src = url;
+                            aud.onload = evt => {
+                                URL.revokeObjectURL(url);
+                            };
+                            aud.onended = evt => {
+                                document.body.removeChild(aud);
+                            }
+                            aud.play();
+                        } else {
+                            console.log("error");
+                        }
+                    }
+                };
+                xhr.send(builder.build());
+            };
+        </script>
     </body>
 
     </html>

@@ -84,10 +84,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				<option value="en-US">English</option>
 				<option value="fr-FR">French</option>
 			</select><br>
-			<button id="sendbtn">submit</button><br>
+			<button id="sendbtn">submit</button>
+			<button id="speakbtn">speak</button><br>
+		</form>
+		<form method="post" enctype="multipart/form-data">
+			Select image to upload:<br>
+			<input type="file" name="fileToUpload" id="fileToUpload"><br>
+			<button id="imgbtn">Upload Image</button>
 		</form>
 		<pre id="output"></pre>
 		<script src="/script.js"></script>
+		<script type="text/javascript">
+			document.getElementById('imgbtn').onclick = e => {
+				e.preventDefault();
+				let formData = new FormData();
+				formData.append("fileToUpload", document.getElementById("fileToUpload").files[0]);
+
+				let xhr = new XMLHttpRequest();
+				xhr.open("POST", "/image.php");
+				xhr.onreadystatechange = async function() {
+					if (xhr.readyState == XMLHttpRequest.DONE) {
+						document.getElementById("txtdiv").innerText = this.response;
+					}
+				};
+				xhr.send(formData);
+			};
+			document.getElementById('speakbtn').onclick = e => {
+				e.preventDefault();
+				let builder = new XHRBuilder();
+				builder.addField('text', document.getElementById("txtdiv").innerText);
+				builder.addField('lang', "en-US");
+				let xhr = new XMLHttpRequest();
+				xhr.open("POST", "/speak.php", true);
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.responseType = 'blob';
+				xhr.onreadystatechange = async function() {
+					if (xhr.readyState == XMLHttpRequest.DONE) {
+						let cont_type = xhr.getResponseHeader('Content-Type');
+						if (cont_type === 'audio/mpeg') {
+							let blob = new Blob([this.response], {
+								type: 'audio/mpeg'
+							});
+							let aud = document.createElement("audio");
+							aud.style = "display: none";
+							document.body.appendChild(aud);
+							let url = window.URL.createObjectURL(blob);
+							aud.src = url;
+							aud.onload = evt => {
+								URL.revokeObjectURL(url);
+							};
+							aud.onended = evt => {
+								document.body.removeChild(aud);
+							}
+							aud.play();
+						} else {
+							console.log("error");
+						}
+					}
+				};
+				xhr.send(builder.build());
+			};
+		</script>
 	</body>
 
 	</html>

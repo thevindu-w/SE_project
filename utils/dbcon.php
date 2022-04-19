@@ -152,7 +152,7 @@ class DatabaseConn
     $email = htmlspecialchars($email);
     $pw = htmlspecialchars($pw);
     $email_pattern = '/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/';
-    $pw_pattern = '/^\S{8,15}$/';
+    $pw_pattern = '/^[\x21-\x7E]{8,15}$/';
     //$pw_pattern = '/^\S*(?=\S{8,15})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])(?=\S*[\W])\S*$/';
     if (preg_match($email_pattern, $email) && preg_match($pw_pattern, $pw)) {
       return true;
