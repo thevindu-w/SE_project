@@ -29,34 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $token = $_GET['token'];
         $dbcon = DatabaseConn::get_conn();
         if ($dbcon->activateAccount($email, $token)) {
-?>
-            <html>
-
-            <body>
-                <p>Your account is activated. <a href="/login.php?email=<?php echo urlencode($_GET['email']); ?>">Login now</a></p>
-            </body>
-
-            </html>
-    <?php
+            include "views/accountActivated.php";
         } else {
-            echo "Account activation failed!";
+            include "views/activationFailed.php";
         }
         die();
     }
-    ?>
-    <html>
-
-    <body>
-        <form method="post">
-            Email :
-            <input type="email" name="email" /><br>
-            Password :
-            <input type="password" name="password" /><br>
-            <button type="submit">SIGNUP</button>
-        </form>
-    </body>
-
-    </html>
-<?php
+    include "views/signup.php";
 }
 ?>
