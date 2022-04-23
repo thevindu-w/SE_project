@@ -38,6 +38,10 @@ class TextBuilder {
             editDiv.appendChild(gspan);
             let bspan = document.createElement('span');
             bspan.innerText = this.badArr[i];
+            bspan.id = "bspan" + i;
+            bspan.onclick = e =>{
+                document.getElementById('error' + i).classList.add('red');
+            }
             bspan.classList.add('red');
             editDiv.appendChild(bspan);
         }

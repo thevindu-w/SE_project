@@ -6,6 +6,10 @@
             color: red;
         }
 
+        .big{
+            font-size: large;
+        }
+
         #txtdiv {
             border: 1px solid black;
             margin: 5px;
@@ -27,6 +31,7 @@
         <button id="sendbtn">submit</button>
         <button id="speakbtn">speak</button><br>
     </form>
+    <div id="errors"></div>
     <form method="post" enctype="multipart/form-data">
         Select image to upload:<br>
         <input type="file" name="fileToUpload" id="fileToUpload"><br>

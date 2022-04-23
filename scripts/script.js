@@ -2,6 +2,7 @@ document.getElementById('sendbtn').onclick = e => {
     e.preventDefault();
 
     let txtdiv = document.getElementById('txtdiv');
+    let errdiv = document.getElementById('errors');
     let text = txtdiv.innerText;//.replace('\n', ' ');
     let lang = document.getElementById('lang').value;
 
@@ -16,8 +17,18 @@ document.getElementById('sendbtn').onclick = e => {
             try {
                 let data = JSON.parse(xhr.responseText);
                 let textBuilder = new TextBuilder(text);
+                let i = 0;
                 data.forEach(err_info => {
                     textBuilder.addError(err_info.offset, err_info.length);
+                    let diverr = document.createElement('div');
+                    diverr.innerText = 'error: '+ err_info.offset + ' ' + err_info.length;
+                    let iter = i;
+                    diverr.onclick = e =>{
+                        let bspan = document.getElementById('bspan' + iter);
+                        bspan.classList.add('big');
+                    };
+                    errdiv.appendChild(diverr);
+                    diverr.id = 'error' + i++;
                 });
                 let newText = textBuilder.build();
                 txtdiv.innerHTML = "";
