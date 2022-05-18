@@ -36,7 +36,7 @@
             </div>
             <br>
             <div class="">
-                <button type="submit" class="btn">SIGNUP</button>
+                <button id="submitBtn" type="submit" class="btn">SIGNUP</button>
             </div>
 
         </form>
@@ -47,6 +47,8 @@
         </div>
 
     </div>
+    <script src="/scripts/signup.js"></script>
+    <script src="/scripts/common.js"></script>
 </body>
 
 </html>

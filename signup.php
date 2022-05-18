@@ -1,6 +1,7 @@
 <?php
 require_once('utils/dbcon.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $status = ['success' => false];
     if (isset($_POST['email']) && isset($_POST['password']) && $_POST['email'] && $_POST['password']) {
         $email = $_POST['email'];
         $password = $_POST['password'];
@@ -14,14 +15,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $msg = "<html><body><h1>Account Activation</h1><p>Click <a href=\"$activate_link\">this link</a> to activate your account.</p><a href=\"\"></body></html>";
             $status = mail($email, "Account Activation", $msg, $headers);
             if ($status) {
-                echo "Account activation link will be sent to your email.";
+                $status = ['success' => true];
             } else {
-                echo "Error occured!";
+                $status = ['success' => false, 'reason' => 'Email sending failed'];
             }
         } else {
-            echo "Account creation failed!";
+            $status = ['success' => false, 'reason' => 'Account creation failed'];
         }
     }
+    echo json_encode($status);
     die();
 } else {
     if (isset($_GET['email']) && isset($_GET['token']) && $_GET['email'] && $_GET['token']) {
