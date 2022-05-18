@@ -43,14 +43,25 @@ document.getElementById('sendbtn').onclick = e => {
 
 document.getElementById('imgbtn').onclick = e => {
     e.preventDefault();
+    let lang = document.getElementById('lang').value;
     let formData = new FormData();
+    formData.append("lang", lang);
     formData.append("fileToUpload", document.getElementById("fileToUpload").files[0]);
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "/image.php");
     xhr.onreadystatechange = async function() {
         if (xhr.readyState == XMLHttpRequest.DONE) {
-            document.getElementById("txtdiv").innerText = this.response;
+            try{
+                let data = JSON.parse(this.response);
+                if (!data.hasOwnProperty('success') || data['success']!==true || !data.hasOwnProperty('text')){
+                    console.log('text extraction failed');
+                    return;
+                }
+                document.getElementById("txtdiv").innerText = data['text'];
+            }catch (error){
+                console.log(error);
+            }
         }
     };
     xhr.send(formData);

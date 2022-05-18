@@ -3,6 +3,9 @@ require_once('utils/auth.php');
 checkAuth();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+	if (!isset($_POST['text']) || !isset($_POST['lang']) || !$_POST['text'] || !$_POST['lang']){
+		die();
+	}
 	$text = $_POST['text'];
 	$lang = $_POST['lang'];
 
