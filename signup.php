@@ -6,14 +6,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = $_POST['email'];
         $password = $_POST['password'];
         $dbcon = DatabaseConn::get_conn();
-        $token = $dbcon->requestAccount($email, $password, 3600);
+        $token = $dbcon!=null ? $dbcon->requestAccount($email, $password, 3600) : null;
         if ($token != null) {
+            require_once 'utils/mail.php';
             $activate_link = "$_SERVER[HTTP_HOST]/signup.php?email=" . urlencode($email) . "&token=$token";
-            $headers  = 'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
             // the message
             $msg = "<html><body><h1>Account Activation</h1><p>Click <a href=\"$activate_link\">this link</a> to activate your account.</p><a href=\"\"></body></html>";
-            $status = mail($email, "Account Activation", $msg, $headers);
+            $status = sendmail($email, "Account Activation", $msg);
             if ($status) {
                 $status = ['success' => true];
             } else {
