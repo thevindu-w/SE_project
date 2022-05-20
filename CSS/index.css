@@ -13,18 +13,29 @@ body {
 
 .btn {
     box-shadow: none;
-    width: 80px;
-    height: 30px;
-    background-color: #03A9F4;
-    color: #fff;
     border-radius: 25px;
     box-shadow: 3px 3px 3px #b1b1b1;
     letter-spacing: 1.3px;
     font-size: small;
 }
 
+.btn-blue {
+    width: 80px;
+    height: 30px;
+    background-color: #03A9F4;
+    color: #fff;
+    
+}
+
+.btn-white {
+    background-color: #fff;
+}
+
 .btn-img {
     width: 140px;
+    height: 30px;
+    background-color: #03A9F4;
+    color: #fff;
 }
 
 .txtdiv {
@@ -34,13 +45,23 @@ body {
     padding: 40px 30px 30px 30px;
     background-color: #ecf0f3;
     border-radius: 10px;
-    box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
+    box-shadow: 10px 10px 15px #cbced1, -5px -5px 8px #fff;
 }
 
 .dropdown {
     background-color: #ecf0f3;
     color: black;
     border-radius: 10px; 
-    box-shadow: 13px 13px 20px #cbced1;
+    box-shadow: 8px 8px 10px #cbced1;
     font-size: small;
+}
+
+.wrapper {
+    max-width: 400px;
+    min-height: 80px;
+    margin: 10px auto;
+    padding: 15px 20px 15px 20px;
+    background-color: #ecf0f3;
+    border-radius: 10px;
+    box-shadow: 10px 10px 15px #cbced1;
 }
