@@ -11,11 +11,23 @@
     <link rel="stylesheet" href="CSS/index.css">
 
     <style>
-        .red {
+        .bad {
+            /** class for spans having grammar errors */
             color: red;
         }
 
-        .big{
+        .good {
+            /** class for spans without grammar errors */
+            color: black;
+        }
+
+        .errspan {
+            /** class for spans showing wrong words */
+            color: red;
+            text-decoration-line: line-through;
+        }
+
+        .big {
             font-size: large;
         }
 
@@ -31,8 +43,9 @@
 <body>
     <div class="container">
         <form method="post">
-            <div class="txtdiv" id="txtdiv" contenteditable="true" name="text">This is an sample text.<br>
-                This have a grammar error.
+            <div class="txtdiv" id="txtdiv" contenteditable="true" name="text">
+                <span class="good">This is </span><span class="bad">an</span><span class="good"> sample text.<br>
+                </span><span class="bad">This have</span><span class="good"> a grammar error</span>.
             </div>
             Language:
             <select class="dropdown" id="lang" name="lang">
@@ -43,7 +56,19 @@
             <button class="btn btn-blue" id="speakbtn">speak</button><br>
         </form>
         <br>
-        <div id="errors"></div>
+        <div id="errors">
+            <div id="err0">
+                <span class="errspan">an</span><select class="dropdown">
+                    <option value="a">a</option>
+                </select>
+            </div>
+            <div id="err1">
+                <span class="errspan">This have</span><select class="dropdown">
+                    <option value="This has">This has</option>
+                    <option value="These have">These have</option>
+                </select>
+            </div>
+        </div>
         <form method="post" enctype="multipart/form-data">
             Select image to upload:<br>
             <input class="upload" type="file" name="fileToUpload" id="fileToUpload">
@@ -53,7 +78,7 @@
         <script src="/scripts/common.js"></script>
         <script src="/scripts/script.js"></script>
     </div>
-    
+
 </body>
 
 </html>
