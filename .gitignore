@@ -1,7 +1,9 @@
 utils/.env
 vendor/
 tmp/
+phpmyadmin/
 .trash/
 .vscode/
 TODO
 test.php
+TODO

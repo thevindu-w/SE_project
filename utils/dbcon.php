@@ -7,10 +7,10 @@ class DatabaseConn
   /** @var \myslqi */
   private $conn;
 
-  private function __construct($servername, $username, $password, $database)
+  private function __construct($server, $port, $username, $password, $database)
   {
     try {
-      $this->conn = new mysqli($servername, $username, $password, $database);
+      $this->conn = new mysqli($server, $username, $password, $database, $port);
       mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
       /* check connection */
@@ -31,7 +31,13 @@ class DatabaseConn
         $username = $dbconfig['DB_USERNAME'];
         $password = $dbconfig['DB_PASSWORD'];
         $database = $dbconfig['DB_DATABASE'];
-        DatabaseConn::$dbconn = new DatabaseConn($servername, $username, $password, $database);
+        $server_addr = explode(':', $servername, 2);
+        $port = '3306';
+        if ($server_addr && sizeof($server_addr) == 2) {
+          $servername = $server_addr[0];
+          $port = $server_addr[1];
+        }
+        DatabaseConn::$dbconn = new DatabaseConn($servername, $port, $username, $password, $database);
       }
       if (DatabaseConn::$dbconn && DatabaseConn::$dbconn->conn) {
         return DatabaseConn::$dbconn;

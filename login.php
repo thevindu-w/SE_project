@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = $_POST['email'];
         $password = $_POST['password'];
         $dbcon = DatabaseConn::get_conn();
-        if ($dbcon->auth($email, $password)) {
+        if ($dbcon != null && $dbcon->auth($email, $password)) {
             session_start();
             $_SESSION['logged_in'] = true;
             $target = '/index.php';
