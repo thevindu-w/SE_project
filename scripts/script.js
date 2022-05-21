@@ -44,7 +44,7 @@ class ErrorDivCreator {
     createDiv(offset, length, options, reason = '') {
         let errTxt = this.text.substring(offset, offset + length);
         let errDiv = document.createElement('div');
-        errDiv.id = 'err' + this.index++;
+        errDiv.id = 'err' + this.index;
         let wrapDiv = document.createElement('div');
         wrapDiv.classList.add('wrapper');
         errDiv.appendChild(wrapDiv);
@@ -55,16 +55,29 @@ class ErrorDivCreator {
         let spaceSpan = document.createElement('span');
         spaceSpan.innerText = ' : ';
         wrapDiv.appendChild(spaceSpan);
-        if (options) {
+        if (options && Array.isArray(options) && options.length>0) {
             let sel = document.createElement('select');
             sel.classList.add('dropdown');
             wrapDiv.appendChild(sel);
+            {
+                let opt = document.createElement('option');
+                opt.value = '';
+                opt.innerText = 'select...';
+                sel.appendChild(opt);
+            }
             options.forEach(option => {
                 let opt = document.createElement('option');
                 opt.value = option;
                 opt.innerText = option;
                 sel.appendChild(opt);
             });
+            let index = this.index;
+            sel.onchange = function() {
+                let bspan = document.getElementById('bspan' + index);
+                bspan.innerText = sel.value;
+                bspan.classList.remove('red');
+                bspan.classList.add('green');
+            };
         }
         wrapDiv.appendChild(document.createElement('br'));
         wrapDiv.appendChild(document.createElement('br'));
@@ -74,6 +87,7 @@ class ErrorDivCreator {
             reasonSpan.innerText = reason;
             wrapDiv.appendChild(reasonSpan);
         }
+        this.index++;
         return errDiv;
     }
 
@@ -122,7 +136,7 @@ document.getElementById('sendbtn').onclick = e => {
                 let errDivCreator = new ErrorDivCreator(text);
                 { // clean errors div
                     let chld = errdiv.lastElementChild;
-                    while (chld){
+                    while (chld) {
                         errdiv.removeChild(chld);
                         chld = errdiv.lastElementChild;
                     }
@@ -130,7 +144,11 @@ document.getElementById('sendbtn').onclick = e => {
                 //let i = 0;
                 data.forEach(err_info => {
                     textBuilder.addError(err_info.offset, err_info.length);
-                    let diverr = errDivCreator.createDiv(err_info.offset, err_info.length, ['abc', 'koefrk'], "Your grammar is wrong");
+                    let offset = err_info.offset;
+                    let length = err_info.length;
+                    let options = err_info.hasOwnProperty('correct') ? err_info.correct : [];
+                    let reason = err_info.hasOwnProperty('description') ? err_info.description : undefined;
+                    let diverr = errDivCreator.createDiv(offset, length, options, reason);
                     /*diverr.innerText = 'error: ' + err_info.offset + ' ' + err_info.length;
                     let iter = i;
                     diverr.onclick = e => {
@@ -178,9 +196,11 @@ document.getElementById('imgbtn').onclick = e => {
 };
 document.getElementById('speakbtn').onclick = e => {
     e.preventDefault();
+    let lang = document.getElementById('lang').value;
+    let text = document.getElementById('txtdiv').innerText;
     let builder = new XHRBuilder();
-    builder.addField('text', document.getElementById("txtdiv").innerText);
-    builder.addField('lang', "en-US");
+    builder.addField('text', text);
+    builder.addField('lang', lang);
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "/speak.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");

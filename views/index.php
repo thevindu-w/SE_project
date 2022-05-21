@@ -16,11 +16,16 @@
             color: red;
         }
 
-        .big{
+        .green {
+            color: green;
+        }
+
+        .big {
             font-size: large;
         }
 
-        .errspan{
+        .errspan {
+            font-weight: bold;
             color: #ff3f66;
         }
 
@@ -39,7 +44,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#" style="font-weight: bold; font-size: x-large; color: #174966; font-family: 'Roboto Slab', serif;">
-                <img src="Images/logo.png" alt="Avatar Logo" style="width:35px;" class="rounded-pill"> Name
+                <img src="Images/logo.png" alt="Avatar Logo" style="width:35px;" class="rounded-pill"> Multi-Grammar
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -76,46 +81,22 @@
                 <br>
                 <br>
                 <form method="post" enctype="multipart/form-data">
-                    Select image to upload:
+                    Select image to extract text:
                     <input class="upload" type="file" name="fileToUpload" id="fileToUpload">
                     <br>
                     <button class="btn btn-img" id="imgbtn">Upload Image</button>
                 </form>
-                <pre id="output"></pre>
-                <script src="/scripts/common.js"></script>
-                <script src="/scripts/script.js"></script>
             </div>
-        
+
             <div class="col">
                 <div id="errors">
-                    <!--div id="err0">
-                        <div class="wrapper">
-                            <span class="errspan">an : </span>
-                            <select class="dropdown">
-                                <option value="a">a</option>
-                            </select>
-                            <br>
-                            <br>
-                            <span class="rsnspan">Reason for the error</span>
-                        </div>
-                    </div>
-                    <div id="err1">
-                        <div class="wrapper">
-                            <span class="errspan" style="color: #ff3f66;">This have : </span>
-                            <select class="dropdown">
-                                <option value="This has">This has</option>
-                                <option value="These have">These have</option>
-                            </select>
-                            <br>
-                            <br>
-                            <span class="rsnspan">Reason for the error</span>
-                        </div>
-                    </div-->
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="/scripts/common.js"></script>
+    <script src="/scripts/script.js"></script>
 </body>
 
 </html>

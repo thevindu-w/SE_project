@@ -52,10 +52,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		die();
 	}
 
-	$errors = $res['errors'];
-	/*foreach ($res['errors'] as $err) {
-		array_push($errors, ['offset' => $err['offset'], 'length' => $err['length']]);
-	}*/
+	$errors = [];
+	foreach ($res['errors'] as $err) {
+		$sendErr = ['offset' => $err['offset'], 'length' => $err['length']];
+		if (isset($err['better']) && $err['better']){
+			$sendErr['correct'] = $err['better'];
+		}
+		if (isset($err['description']) && $err['description'] && isset($err['description']['en']) && $err['description']['en']){
+			$sendErr['description'] = $err['description']['en'];
+		}
+		array_push($errors, $sendErr);
+	}
 	$off_arr = array_column($errors, 'offset');
 	array_multisort($off_arr, SORT_ASC, $errors);
 	echo json_encode($errors);
