@@ -130,7 +130,7 @@ document.getElementById('sendbtn').onclick = e => {
                 //let i = 0;
                 data.forEach(err_info => {
                     textBuilder.addError(err_info.offset, err_info.length);
-                    let diverr = errDivCreator.createDiv(err_info.offset, err_info.length, ['abc', 'koefrk']);
+                    let diverr = errDivCreator.createDiv(err_info.offset, err_info.length, ['abc', 'koefrk'], "Your grammar is wrong");
                     /*diverr.innerText = 'error: ' + err_info.offset + ' ' + err_info.length;
                     let iter = i;
                     diverr.onclick = e => {
