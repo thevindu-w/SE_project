@@ -52,10 +52,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		die();
 	}
 
-	$errors = [];
-	foreach ($res['errors'] as $err) {
+	$errors = $res['errors'];
+	/*foreach ($res['errors'] as $err) {
 		array_push($errors, ['offset' => $err['offset'], 'length' => $err['length']]);
-	}
+	}*/
 	$off_arr = array_column($errors, 'offset');
 	array_multisort($off_arr, SORT_ASC, $errors);
 	echo json_encode($errors);

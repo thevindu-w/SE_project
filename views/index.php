@@ -20,6 +20,10 @@
             font-size: large;
         }
 
+        .errspan{
+            color: #ff3f66;
+        }
+
         #txtdiv {
             border: 1px solid black;
             margin: 5px;
@@ -84,9 +88,9 @@
         
             <div class="col">
                 <div id="errors">
-                    <div id="err0">
+                    <!--div id="err0">
                         <div class="wrapper">
-                            <span class="errspan" style="color: #ff3f66;">an : </span>
+                            <span class="errspan">an : </span>
                             <select class="dropdown">
                                 <option value="a">a</option>
                             </select>
@@ -106,7 +110,7 @@
                             <br>
                             <span class="rsnspan">Reason for the error</span>
                         </div>
-                    </div>
+                    </div-->
                 </div>
             </div>
         </div>
