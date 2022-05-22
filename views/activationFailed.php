@@ -18,7 +18,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#" style="font-weight: bold; font-size: x-large; color: #174966; font-family: 'Roboto Slab', serif;">
-                <img src="Images/Logo.png" alt="Avatar Logo" style="width:35px;" class="rounded-pill"> Name
+                <img src="Images/logo.png" alt="Avatar Logo" style="width:35px;" class="rounded-pill"> Name
             </a>
         </div>
     </nav> 
