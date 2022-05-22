@@ -30,37 +30,38 @@
         }
 
         #txtdiv {
-            border: 1px solid black;
-            margin: 5px;
-            padding: 5px;
+            border: 1px solid #174966;
+            margin: 0px;
+            padding: 10px;
             width: 40%;
         }
     </style>
 </head>
 
 <body>
-    <!-- Navigation Bar -->
-
+    <!-- start navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#" style="font-weight: bold; font-size: x-large; color: #174966; font-family: 'Roboto Slab', serif;">
-                <img src="Images/logo.png" alt="Avatar Logo" style="width:35px;" class="rounded-pill"> Multi-Grammar
+            <!-- navbar brand -->
+            <a class="navbar-brand" href="#" style="padding: 2px 2px; font-weight: bold; font-size: x-large; color: #174966; font-family: 'Roboto Slab', serif;">
+                <img src="Images/logo.png" alt="Avatar Logo" style="width:35px; object-fit: cover; margin: 1px; border-radius: 50%; box-shadow: 0px 0px 3px #5f5f5f, 0px 0px 0px 5px #ecf0f3, 8px 8px 15px #a7aaa7, -8px -8px 15px #fff;" class="rounded-pill"> &nbsp;&nbsp;Multi-Grammar
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <!-- button logout -->
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/login.php?logout=1" style="font-size: large;">Logout</a>
+                        <a class="btn btn-black" aria-current="page" href="/login.php?logout=1">Logout</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-
+    <!-- end navbar -->
     <br>
-
+    <!-- start page content -->
     <div class="container">
         <div class="row">
             <div class="col">
@@ -76,8 +77,8 @@
                         <option value="fr-FR">French</option>
                         <option value="es-ES">Spanish</option>
                     </select>
-                    <button class="btn btn-blue" id="sendbtn">submit</button>
-                    <button class="btn btn-blue" id="speakbtn">speak</button>
+                    <button class="btn btn-blue" id="sendbtn">Submit</button>
+                    <button class="btn btn-blue" id="speakbtn">Speak</button>
                 </form>
                 <br>
                 <br>
@@ -87,6 +88,7 @@
                     <br>
                     <button class="btn btn-img" id="imgbtn">Upload Image</button>
                 </form>
+                <br>
             </div>
 
             <div class="col">
