@@ -6,13 +6,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = $_POST['email'];
         $password = $_POST['password'];
         $dbcon = DatabaseConn::get_conn();
-        $token = $dbcon!=null ? $dbcon->requestAccount($email, $password, 3600) : null;
+        $token = $dbcon != null ? $dbcon->requestAccount($email, $password, 3600) : null;
         if ($token != null) {
             require_once 'utils/mail.php';
             $activate_link = "$_SERVER[HTTP_HOST]/signup.php?email=" . urlencode($email) . "&token=$token";
+            $msgTemplate = file_get_contents('utils/mailTemplate.html');
+            $replaceStr = ['ACTIVATE_LINK' => $activate_link];
             // the message
-            $msg = "<html><body><h1>Account Activation</h1><p>Click <a href=\"$activate_link\">this link</a> to activate your account.</p><a href=\"\"></body></html>";
-            $status = sendmail($email, "Account Activation", $msg);
+            $msg = strtr($msgTemplate, $replaceStr);
+            $status = sendmail($email, "Account Activation", $msg, $_SERVER['DOCUMENT_ROOT'] . '/Images/logo.png');
             if ($status) {
                 $status = ['success' => true];
             } else {
@@ -38,4 +40,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     include "views/signup.php";
 }
-?>
