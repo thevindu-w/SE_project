@@ -74,6 +74,7 @@
                     <select class="dropdown" id="lang" name="lang">
                         <option value="en-US">English</option>
                         <option value="fr-FR">French</option>
+                        <option value="es-ES">Spanish</option>
                     </select>
                     <button class="btn btn-blue" id="sendbtn">submit</button>
                     <button class="btn btn-blue" id="speakbtn">speak</button>

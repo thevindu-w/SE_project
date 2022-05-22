@@ -4,9 +4,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
-function sendmail(string $email, string $subject, string $message): bool
+function sendmail(string $email, string $subject, string $message, string $imgPath = null): bool
 {
     $mail_config = parse_ini_file('.env');
     $sender = $mail_config['MAIL_SENDER'];
@@ -33,6 +33,10 @@ function sendmail(string $email, string $subject, string $message): bool
         $mail->Subject = $subject;
         $mail->Body    = $message;
         $mail->AltBody = $message;
+
+        if ($imgPath != null) {
+            $mail->addEmbeddedImage($imgPath, 'logo');
+        }
 
         return $mail->send();
     } catch (Exception $e) {
