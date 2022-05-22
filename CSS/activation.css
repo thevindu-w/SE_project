@@ -14,7 +14,7 @@ body {
 .wrapper {
     max-width: 350px;
     min-height: 50px;
-    margin: 15% auto;
+    margin: 100px auto;
     padding: 40px 30px 30px 30px;
     background-color: #ecf0f3;
     border-radius: 15px;
@@ -35,4 +35,20 @@ body {
         0px 0px 0px 5px #ecf0f3,
         8px 8px 15px #a7aaa7,
         -8px -8px 15px #fff;
+}
+
+.btn {
+    box-shadow: none;
+    border-radius: 25px;
+    box-shadow: 3px 3px 3px #b1b1b1;
+    letter-spacing: 1.3px;
+    font-size: small;
+}
+
+.btn-blue {
+    width: 80px;
+    height: 30px;
+    background-color: #03A9F4;
+    color: #fff;
+    
 }
