@@ -49,15 +49,15 @@
         <form class="p-3 mt-3" method="post">
 
             <div class="form-field d-flex align-items-center">
-                <input type="email" name="email" id="email" placeholder="Email" />
+                <input type="email" name="email" id="email" onkeypress="keyPressFn(event, 'password')" placeholder="Email" />
             </div>
             <br>
             <div class="form-field d-flex align-items-center">
-                <input type="password" name="password" id="password" placeholder="Password" />
+                <input type="password" name="password" id="password" onkeypress="keyPressFn(event, 'cnfpassword')" placeholder="Password" />
             </div>
             <br>
             <div class="form-field d-flex align-items-center">
-                <input type="password" name="cnfpassword" id="cnfpassword" placeholder="Confirm password" />
+                <input type="password" name="cnfpassword" id="cnfpassword" onkeypress="keyPressFn(event, '')" placeholder="Confirm password" />
             </div>
             <br>
             <div class="">

@@ -48,16 +48,18 @@
         <!-- login form-->
         <form class="p-3 mt-3" method="post">
             <div class="form-field d-flex align-items-center">
-                <input type="email" name="email" id="email" placeholder="Enter email" value="<?php
-                            if (isset($_GET['email']) && $_GET['email']) { echo $_GET['email']; } ?>" />
+                <input type="email" name="email" id="email" onkeypress="keyPressFn(event, 'password')" placeholder="Enter email" value="<?php
+                                                                                                                                        if (isset($_GET['email']) && $_GET['email']) {
+                                                                                                                                            echo $_GET['email'];
+                                                                                                                                        } ?>" />
             </div>
             <br>
             <div class="form-field d-flex align-items-center">
-                <input type="password" name="password" id="password" placeholder="Enter password" />
+                <input type="password" name="password" id="password" onkeypress="keyPressFn(event, '')" placeholder="Enter password" />
             </div>
             <br>
             <div class="">
-                <button type="submit" class="btn">LOGIN</button>
+                <button type="submit" id="submitBtn" class="btn">LOGIN</button>
             </div>
 
         </form>
@@ -67,6 +69,7 @@
             <a href="signup.php" style="font-size: medium">Sign Up</a>
         </div>
     </div>
+    <script src="/scripts/login.js"></script>
 </body>
 
 </html>
