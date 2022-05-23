@@ -40,7 +40,7 @@
 
 <body>
     <!-- start navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="box-shadow: 13px 13px 20px #cbced1;">
         <div class="container-fluid">
             <!-- navbar brand -->
             <a class="navbar-brand" href="#" style="padding: 2px 2px; font-weight: bold; font-size: x-large; color: #174966; font-family: 'Roboto Slab', serif;">

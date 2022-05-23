@@ -13,15 +13,19 @@
 </head>
 
 <body>
-    <!-- Navigation Bar -->
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- start navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="box-shadow: 13px 13px 20px #cbced1;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#" style="font-weight: bold; font-size: x-large; color: #174966; font-family: 'Roboto Slab', serif;">
-                <img src="Images/logo.png" alt="Avatar Logo" style="width:35px; object-fit: cover; margin: 1px; border-radius: 50%; box-shadow: 0px 0px 3px #5f5f5f, 0px 0px 0px 5px #ecf0f3, 8px 8px 15px #a7aaa7, -8px -8px 15px #fff;" class="rounded-pill"> Multi-Grammar
+            <!-- navbar brand -->
+            <a class="navbar-brand" href="#" style="padding: 2px 2px; font-weight: bold; font-size: x-large; color: #174966; font-family: 'Roboto Slab', serif;">
+                <img src="Images/logo.png" alt="Avatar Logo" style="width:35px; object-fit: cover; margin: 1px; border-radius: 50%; box-shadow: 0px 0px 3px #5f5f5f, 0px 0px 0px 5px #ecf0f3, 8px 8px 15px #a7aaa7, -8px -8px 15px #fff;" class="rounded-pill"> &nbsp;&nbsp;Multi-Grammar
             </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <!-- button signup -->
                     <li class="nav-item">
                         <a class="btn btn-blue" aria-current="page" href="signup.php">Signup</a>
                     </li>
@@ -29,7 +33,9 @@
             </div>
         </div>
     </nav>
-
+    <!-- end navbar -->
+    <br>
+    <!-- start page content -->
     <div class="wrapper">
 
         <div class="logo">
@@ -39,7 +45,7 @@
         <div class="text-center mt-4 name">
             Multi-Grammar
         </div>
-
+        <!-- login form-->
         <form class="p-3 mt-3" method="post">
             <div class="form-field d-flex align-items-center">
                 <input type="email" name="email" id="email" onkeypress="keyPressFn(event, 'password')" placeholder="Enter email" value="<?php
@@ -60,7 +66,7 @@
 
         <div class="text-center fs-6">
             Don't have an account?
-            <a href="signup.php">Sign Up</a>
+            <a href="signup.php" style="font-size: medium">Sign Up</a>
         </div>
     </div>
     <script src="/scripts/login.js"></script>

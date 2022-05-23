@@ -48,9 +48,9 @@ submitBtn.onclick = e => {
                     alert('Account creation failed!');
                     return;
                 }
-                alert('Account created. You will receive the account activation link to your email');
+                alert('Account created. You will receive an account activation link to your email');
             } catch (error) {
-                alert('Error occured!');
+                alert('Something went wrong! Please try again.');
             }
         }
     };
