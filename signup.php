@@ -1,4 +1,12 @@
 <?php
+session_start();
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+    session_write_close();
+    header('Location: /index.php');
+    die();
+}
+session_write_close();
+
 require_once('utils/dbcon.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $status = ['success' => false];
@@ -9,7 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $token = $dbcon != null ? $dbcon->requestAccount($email, $password, 3600) : null;
         if ($token != null) {
             require_once 'utils/mail.php';
-            $activate_link = "$_SERVER[HTTP_HOST]/signup.php?email=" . urlencode($email) . "&token=$token";
+            $protocol = 'http://';
+            if (isset($_SERVER['REQUEST_SCHEME'])){
+                $protocol = $_SERVER['REQUEST_SCHEME'] . '://';
+            }else if (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && ($_SERVER['HTTPS']=='on' || $_SERVER['HTTPS']=='off')){
+                $protocol = $_SERVER['HTTPS'] === 'on' ? "https://" : "http://";
+            }
+            $activate_link = $protocol . "$_SERVER[HTTP_HOST]/signup.php?email=" . urlencode($email) . "&token=$token";
             $msgTemplate = file_get_contents('utils/mailTemplate.html');
             $replaceStr = ['ACTIVATE_LINK' => $activate_link];
             // the message
