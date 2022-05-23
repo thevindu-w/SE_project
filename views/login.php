@@ -1,14 +1,15 @@
 <html>
 
 <head>
+    <title>Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="Images/logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f" crossorigin="anonymous"></script>
-    <title>Login</title>
     <link rel="stylesheet" href="CSS/login.css">
 </head>
 
@@ -20,10 +21,10 @@
             <a class="navbar-brand" href="#" style="padding: 2px 2px; font-weight: bold; font-size: x-large; color: #174966; font-family: 'Roboto Slab', serif;">
                 <img src="Images/logo.png" alt="Avatar Logo" style="width:35px; object-fit: cover; margin: 1px; border-radius: 50%; box-shadow: 0px 0px 3px #5f5f5f, 0px 0px 0px 5px #ecf0f3, 8px 8px 15px #a7aaa7, -8px -8px 15px #fff;" class="rounded-pill"> &nbsp;&nbsp;Multi-Grammar
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" id="mynavbar">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <!-- button signup -->
                     <li class="nav-item">
@@ -47,13 +48,14 @@
         </div>
         <!-- login form-->
         <form class="p-3 mt-3" method="post">
+            <!-- get email -->
             <div class="form-field d-flex align-items-center">
                 <input type="email" name="email" id="email" onkeypress="keyPressFn(event, 'password')" placeholder="Enter email" value="<?php
                                                                                                                                         if (isset($_GET['email']) && $_GET['email']) {
                                                                                                                                             echo $_GET['email'];
                                                                                                                                         } ?>" />
             </div>
-            <br>
+            <br> <!-- get password -->
             <div class="form-field d-flex align-items-center">
                 <input type="password" name="password" id="password" onkeypress="keyPressFn(event, '')" placeholder="Enter password" />
             </div>
@@ -61,7 +63,6 @@
             <div class="">
                 <button type="submit" id="submitBtn" class="btn">LOGIN</button>
             </div>
-
         </form>
 
         <div class="text-center fs-6">

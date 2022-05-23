@@ -14,11 +14,28 @@ body {
 .wrapper {
     max-width: 400px;
     min-height: 500px;
-    margin: 10px auto;
+    margin: 5px auto;
     padding: 40px 30px 30px 30px;
     background-color: #ecf0f3;
     border-radius: 15px;
     box-shadow: 13px 13px 20px #cbced1, -10px -10px 15px #fff;
+}
+
+.wrapper-error, .wrapper-success {
+    min-height: 5px;
+    margin: 15px auto 0px auto;
+    color: white;
+    font-size: small;
+}
+
+.wrapper-error {
+    background-color: #ff2c2c;
+    padding: 1px 1px 1px 1px;
+}
+
+.wrapper-success {
+    background-color: #00c227;
+    padding: 1px 30px 1px 30px;
 }
 
 .logo {
