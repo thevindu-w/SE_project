@@ -11,16 +11,6 @@ body {
     background: #ecf0f3;
 }
 
-.wrapper {
-    max-width: 350px;
-    min-height: 50px;
-    margin: 100px auto;
-    padding: 40px 30px 30px 30px;
-    background-color: #ecf0f3;
-    border-radius: 15px;
-    box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
-}
-
 .logo {
     width: 80px;
     margin: auto;
@@ -52,6 +42,19 @@ body {
     background-color: #03A9F4;
     color: #fff;
     
+}
+
+.btn-white {
+    background-color: #fff;
+}
+
+.btn-black {
+    background-color: rgb(151, 151, 151);
+    font-weight: normal;
+}
+
+.name-link {
+    text-shadow: 3px 3px 3px #b1b1b1;
 }
 
 /* navbar style */
