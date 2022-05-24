@@ -178,6 +178,7 @@ document.getElementById('imgbtn').onclick = e => {
     };
     xhr.send(formData);
 };
+
 document.getElementById('speakbtn').onclick = e => {
     e.preventDefault();
     let lang = document.getElementById('lang').value;
@@ -214,4 +215,14 @@ document.getElementById('speakbtn').onclick = e => {
         }
     };
     xhr.send(builder.build());
+};
+
+document.getElementById('copybtn').onclick = e => {
+    e.preventDefault();
+    let text = document.getElementById('txtdiv').innerText;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).catch(reason => { console.log("You should allow clipboard access"); });
+    } else {
+        console.log("navigator.clipboard.writeText is false or not available");
+    }
 };
