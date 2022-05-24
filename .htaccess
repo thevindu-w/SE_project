@@ -13,4 +13,5 @@ RewriteRule ^tmp/.*$ - [L,R=404]
     Header set X-XSS-Protection: "1; mode=block"
     Header set Content-Security-Policy "script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net; connect-src 'self'; frame-src 'self'; form-action 'self'; object-src 'self';"
     Header set X-Content-Type-Options: "nosniff"
+    Header edit Set-Cookie ^(.*)$ $1;SameSite=None;Secure
 </IfModule>

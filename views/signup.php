@@ -20,17 +20,9 @@
     <!-- navbar -->
     <?php include 'navbar.php'; ?>
 
-    <!-- wrapper to show error messages -->
-    <div class="wrapper wrapper-error">
-        <div class="text-center">
-            Something went wrong! Please try again.
-        </div>
-    </div>
-    <!-- wrapper to show success messages -->
-    <div class="wrapper wrapper-success">
-        <div class="text-center">
-            Account created. You will receive an account activation link to your email
-        </div>
+    <!-- wrapper to show messages -->
+    <div id="msgDiv" class="wrapper text-center" hidden>
+        Something went wrong! Please try again.
     </div>
     <br>
     <!-- page content -->
@@ -65,8 +57,8 @@
             <a href="login.php" style="font-size: medium">Sign In</a>
         </div>
     </div>
-    <script src="/scripts/signup.js"></script>
     <script src="/scripts/common.js"></script>
+    <script src="/scripts/signup.js"></script>
 </body>
 
 </html>

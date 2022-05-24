@@ -2,6 +2,7 @@ let submitBtn = document.getElementById('submitBtn');
 let emailInput = document.getElementById('email');
 let passwdInput = document.getElementById('password');
 let cnfpasswdInput = document.getElementById('cnfpassword');
+let msgDiv = document.getElementById('msgDiv');
 
 function keyPressFn(e, nxt) {
     if (e.keyCode === 13) {
@@ -27,21 +28,34 @@ cnfpasswdInput.onkeydown = event => {
     keyPressFn(event, '');
 }
 
+function showMsg(msg, success=false) {
+    msgDiv.classList.remove('wrapper-error');
+    msgDiv.classList.remove('wrapper-success');
+    msgDiv.hidden = false;
+    msgDiv.innerText = msg;
+    if (success) {
+        msgDiv.classList.add('wrapper-success');
+    } else {
+        msgDiv.classList.add('wrapper-error');
+    }
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+}
+
 submitBtn.onclick = e => {
     e.preventDefault();
     let email = emailInput.value;
     let passwd = passwdInput.value;
     let cnfpasswd = cnfpasswdInput.value;
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-        alert("Invalid email");
+        showMsg("Invalid email");
         return;
     }
     if (!/^[\x21-\x7E]{8,15}$/.test(passwd)) {
-        alert("Invalid password");
+        showMsg("Invalid password");
         return;
     }
     if (passwd !== cnfpasswd) {
-        alert("Passwords doesn't match");
+        showMsg("Passwords doesn't match");
         return;
     }
     let xhr = new XMLHttpRequest();
@@ -55,12 +69,12 @@ submitBtn.onclick = e => {
             try {
                 let data = JSON.parse(xhr.responseText);
                 if (!data.hasOwnProperty('success') || data['success'] !== true) {
-                    alert('Account creation failed!');
+                    showMsg('Account creation failed!');
                     return;
                 }
-                alert('Account created. You will receive an account activation link to your email');
+                showMsg('Account created. You will receive an account activation link to your email', true);
             } catch (error) {
-                alert('Something went wrong! Please try again.');
+                showMsg('Something went wrong! Please try again.');
             }
         }
     };
