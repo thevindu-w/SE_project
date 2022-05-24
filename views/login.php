@@ -19,7 +19,10 @@
 <body>
     <!-- navbar -->
     <?php include 'navbar.php'; ?>
-    
+    <!-- wrapper to show messages -->
+    <div id="msgDiv" class="wrapper text-center" hidden>
+        Something went wrong! Please try again.
+    </div>
     <br>
     <!-- start page content -->
     <div class="wrapper">

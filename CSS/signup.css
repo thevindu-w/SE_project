@@ -23,7 +23,7 @@ body {
 
 .wrapper-error, .wrapper-success {
     min-height: 5px;
-    margin: 15px auto 0px auto;
+    margin: 25px auto 0px auto;
     color: white;
     font-size: small;
 }

@@ -41,11 +41,19 @@ function showMsg(msg, success=false) {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
 }
 
+function isEmpty(str) {
+    return (!str || str.length === 0 );
+}
+
 submitBtn.onclick = e => {
     e.preventDefault();
     let email = emailInput.value;
     let passwd = passwdInput.value;
     let cnfpasswd = cnfpasswdInput.value;
+    if (isEmpty(email) || isEmpty(passwd) || isEmpty(cnfpasswd)) {
+        showMsg("Some fileds are empty");
+        return;
+    }
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
         showMsg("Invalid email");
         return;
