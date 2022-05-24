@@ -20,10 +20,11 @@
     <!-- navbar -->
     <?php include 'navbar.php'; ?>
     <!-- wrapper to show messages -->
-    <div id="msgDiv" class="wrapper text-center" hidden>
-        Something went wrong! Please try again.
-    </div>
-    <br>
+    <?php if (isset($_GET['invalid'])) { ?>
+        <div id="msgDiv" class="wrapper text-center wrapper-error">
+            Invalid Login! Please try again.
+        </div>
+    <?php } ?>
     <!-- start page content -->
     <div class="wrapper">
 
@@ -39,13 +40,13 @@
             <!-- get email -->
             <div class="form-field d-flex align-items-center">
                 <input type="email" name="email" id="email" placeholder="Enter email" value="<?php
-                                                                                                                                        if (isset($_GET['email']) && $_GET['email']) {
-                                                                                                                                            echo $_GET['email'];
-                                                                                                                                        } ?>" />
+                                                                                                if (isset($_GET['email']) && $_GET['email']) {
+                                                                                                    echo $_GET['email'];
+                                                                                                } ?>" required/>
             </div>
             <br> <!-- get password -->
             <div class="form-field d-flex align-items-center">
-                <input type="password" name="password" id="password" placeholder="Enter password" />
+                <input type="password" name="password" id="password" placeholder="Enter password" pattern="[\x21-\x7E]{8,15}" required/>
             </div>
             <br>
             <div class="">

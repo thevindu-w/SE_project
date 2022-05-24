@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = $_POST['password'];
         $dbcon = DatabaseConn::get_conn();
         $token = $dbcon != null ? $dbcon->requestAccount($email, $password, 3600) : null;
-        if ($token != null) {
+        if ($token != null && $token != '0') {
             require_once 'utils/mail.php';
             $protocol = 'http://';
             if (isset($_SERVER['REQUEST_SCHEME'])){
@@ -34,7 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $status = ['success' => false, 'reason' => 'Email sending failed'];
             }
-        } else {
+        } else if ($token=='0') {
+            $status = ['success' => false, 'reason' => 'Account already exists for this email'];
+        }else {
             $status = ['success' => false, 'reason' => 'Account creation failed'];
         }
     }
