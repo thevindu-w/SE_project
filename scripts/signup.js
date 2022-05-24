@@ -28,7 +28,7 @@ cnfpasswdInput.onkeydown = event => {
     keyPressFn(event, '');
 }
 
-function showMsg(msg, success=false) {
+function showMsg(msg, success = false) {
     msgDiv.classList.remove('wrapper-error');
     msgDiv.classList.remove('wrapper-success');
     msgDiv.hidden = false;
@@ -42,7 +42,7 @@ function showMsg(msg, success=false) {
 }
 
 function isEmpty(str) {
-    return (!str || str.length === 0 );
+    return (!str || str.length === 0);
 }
 
 submitBtn.onclick = e => {
@@ -77,7 +77,11 @@ submitBtn.onclick = e => {
             try {
                 let data = JSON.parse(xhr.responseText);
                 if (!data.hasOwnProperty('success') || data['success'] !== true) {
-                    showMsg('Account creation failed!');
+                    if (data.hasOwnProperty('reason') && typeof(data['reason']) === "string") {
+                        showMsg(data['reason']);
+                    } else {
+                        showMsg('Account creation failed!');
+                    }
                     return;
                 }
                 showMsg('Account created. You will receive an account activation link to your email', true);
