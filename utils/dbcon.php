@@ -25,8 +25,9 @@ class DatabaseConn
   public static function get_conn(): ?DatabaseConn
   {
     try {
+      require_once('envvars.php');
       if (DatabaseConn::$dbconn == null) {
-        $dbconfig = parse_ini_file('.env');
+        $dbconfig = getEnvVars(['DB_HOST', 'DB_USERNAME', 'DB_PASSWORD', 'DB_DATABASE']);
         $servername = $dbconfig['DB_HOST'];
         $username = $dbconfig['DB_USERNAME'];
         $password = $dbconfig['DB_PASSWORD'];

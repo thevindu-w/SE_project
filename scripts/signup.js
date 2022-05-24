@@ -17,6 +17,16 @@ function keyPressFn(e, nxt) {
     }
 }
 
+emailInput.onkeydown = event => {
+    keyPressFn(event, 'password');
+}
+passwdInput.onkeydown = event => {
+    keyPressFn(event, 'cnfpassword');
+}
+cnfpasswdInput.onkeydown = event => {
+    keyPressFn(event, '');
+}
+
 submitBtn.onclick = e => {
     e.preventDefault();
     let email = emailInput.value;
