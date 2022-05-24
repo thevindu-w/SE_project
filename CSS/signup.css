@@ -31,11 +31,13 @@ body {
 .wrapper-error {
     background-color: #ff2c2c;
     padding: 1px 1px 1px 1px;
+    max-height: 25px;
 }
 
 .wrapper-success {
     background-color: #00c227;
     padding: 1px 30px 1px 30px;
+    max-height: 55px;
 }
 
 .logo {
