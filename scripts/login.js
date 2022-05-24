@@ -1,3 +1,6 @@
+let emailInput = document.getElementById('email');
+let passwdInput = document.getElementById('password');
+
 function keyPressFn(e, nxt) {
     if (e.keyCode === 13) {
         e.preventDefault();
@@ -10,4 +13,11 @@ function keyPressFn(e, nxt) {
             }
         }
     }
+}
+
+emailInput.onkeydown = event => {
+    keyPressFn(event, 'password');
+}
+passwdInput.onkeydown = event => {
+    keyPressFn(event, '');
 }

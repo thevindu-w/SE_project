@@ -45,15 +45,15 @@
         <form class="p-3 mt-3" method="post">
             <!-- get email -->
             <div class="form-field d-flex align-items-center">
-                <input type="email" name="email" id="email" onkeypress="keyPressFn(event, 'password')" placeholder="Email" requried />
+                <input type="email" name="email" id="email" placeholder="Email" requried />
             </div>
             <br> <!-- get password -->
             <div class="form-field d-flex align-items-center">
-                <input type="password" name="password" id="password" onkeypress="keyPressFn(event, 'cnfpassword')" placeholder="Password" requried />
+                <input type="password" name="password" id="password" placeholder="Password" requried />
             </div>
             <br> <!-- get passsword -->
             <div class="form-field d-flex align-items-center">
-                <input type="password" name="cnfpassword" id="cnfpassword" onkeypress="keyPressFn(event, '')" placeholder="Confirm password" requried />
+                <input type="password" name="cnfpassword" id="cnfpassword" placeholder="Confirm password" requried />
             </div>
             <br>
             <div class="">
