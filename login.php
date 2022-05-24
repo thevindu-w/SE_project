@@ -32,6 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             session_write_close();
             header('Location: ' . $target);
             die();
+        }else{
+            header('Location: /login.php?invalid');
+            die();
         }
     }
     header('Location: /login.php');

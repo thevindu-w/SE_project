@@ -88,7 +88,7 @@ class DatabaseConn
         $stmt->close();
         if ($rowcount > 0) {
           ($this->conn)->rollback();
-          return null;
+          return '0';
         }
         $q2 = 'INSERT INTO pending_account (email, password, token, expire) VALUES (?, ?, ?, ?);';
         $hashed = password_hash($pw, PASSWORD_BCRYPT, ['cost' => 12]);
