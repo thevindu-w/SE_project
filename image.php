@@ -30,6 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     echo json_encode($status);
 } else {
-    header('Location: /index.php');
+    header('Location: /grammar.php');
 }
 die();

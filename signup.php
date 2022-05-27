@@ -2,7 +2,7 @@
 session_start();
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
     session_write_close();
-    header('Location: /index.php');
+    header('Location: /grammar.php');
     die();
 }
 session_write_close();

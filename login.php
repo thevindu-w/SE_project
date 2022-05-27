@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['logout'])) {
 session_start();
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
     session_write_close();
-    header('Location: /index.php');
+    header('Location: /grammar.php');
     die();
 }
 session_write_close();
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($dbcon != null && $dbcon->auth($email, $password)) {
             session_start();
             $_SESSION['logged_in'] = true;
-            $target = '/index.php';
+            $target = '/grammar.php';
             if (isset($_SESSION['target']) && $_SESSION['target'] != null) {
                 $target = $_SESSION['target'];
             }
