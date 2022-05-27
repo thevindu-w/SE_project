@@ -226,3 +226,42 @@ document.getElementById('copybtn').onclick = e => {
         console.log("navigator.clipboard.writeText is false or not available");
     }
 };
+
+document.getElementById('textbtn').onclick = e => {
+    e.preventDefault();
+    let text = document.getElementById('txtdiv').innerText;
+    let element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', 'multigrammar.txt');
+    element.style.display = 'none';
+    element.click();
+}
+
+document.getElementById('pdfbtn').onclick = e => {
+    e.preventDefault();
+    let text = document.getElementById('txtdiv').innerText;
+    let builder = new XHRBuilder();
+    builder.addField('text', text);
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "/pdf.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.responseType = 'blob';
+    xhr.onreadystatechange = async function () {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            let cont_type = xhr.getResponseHeader('Content-Type');
+            if (cont_type === 'application/pdf') {
+                let blob = new Blob([this.response], { type: 'application/pdf' });
+                let a = document.createElement("a");
+                a.target = '_blank';
+                let url = window.URL.createObjectURL(blob);
+                a.href = url;
+                a.download = 'multigrammar.pdf';
+                a.click();
+                window.URL.revokeObjectURL(url);
+            } else {
+                console.log('PDF download error');
+            }
+        }
+    };
+    xhr.send(builder.build());
+}
