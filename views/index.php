@@ -91,8 +91,8 @@
             </div>
             <!-- show errors -->
             <div class="col-md">
-                <div id="msgDiv" class="wrapper wrapper-success text-center">
-                    No errors.
+                <div id="msgDiv" class="wrapper wrapper-success text-center" hidden>
+                    No grammar errors.
                 </div>
                 <div id="errors">
                 </div>

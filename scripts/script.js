@@ -103,8 +103,17 @@ document.getElementById('sendbtn').onclick = e => {
 
     let txtdiv = document.getElementById('txtdiv');
     let errdiv = document.getElementById('errors');
+    let noErrdiv = document.getElementById('msgDiv');
+    noErrdiv.hidden = true;
     let text = txtdiv.innerText;//.replace('\n', ' ');
     let lang = document.getElementById('lang').value;
+
+    // clean errors div
+    let chld = errdiv.lastElementChild;
+    while (chld) {
+        errdiv.removeChild(chld);
+        chld = errdiv.lastElementChild;
+    }
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", document.URL, true);
@@ -118,33 +127,22 @@ document.getElementById('sendbtn').onclick = e => {
                 let data = JSON.parse(xhr.responseText);
                 let textBuilder = new TextBuilder(text);
                 let errDivCreator = new ErrorDivCreator(text);
-                { // clean errors div
-                    let chld = errdiv.lastElementChild;
-                    while (chld) {
-                        errdiv.removeChild(chld);
-                        chld = errdiv.lastElementChild;
-                    }
+                if (data.length == 0) {
+                    noErrdiv.hidden = false;
+                } else {
+                    data.forEach(err_info => {
+                        textBuilder.addError(err_info.offset, err_info.length);
+                        let offset = err_info.offset;
+                        let length = err_info.length;
+                        let options = err_info.hasOwnProperty('correct') ? err_info.correct : [];
+                        let reason = err_info.hasOwnProperty('description') ? err_info.description : undefined;
+                        let diverr = errDivCreator.createDiv(offset, length, options, reason);
+                        errdiv.appendChild(diverr);
+                    });
+                    let newText = textBuilder.build();
+                    txtdiv.innerHTML = "";
+                    txtdiv.appendChild(newText);
                 }
-                //let i = 0;
-                data.forEach(err_info => {
-                    textBuilder.addError(err_info.offset, err_info.length);
-                    let offset = err_info.offset;
-                    let length = err_info.length;
-                    let options = err_info.hasOwnProperty('correct') ? err_info.correct : [];
-                    let reason = err_info.hasOwnProperty('description') ? err_info.description : undefined;
-                    let diverr = errDivCreator.createDiv(offset, length, options, reason);
-                    /*diverr.innerText = 'error: ' + err_info.offset + ' ' + err_info.length;
-                    let iter = i;
-                    diverr.onclick = e => {
-                        let bspan = document.getElementById('bspan' + iter);
-                        bspan.classList.add('big');
-                    };*/
-                    errdiv.appendChild(diverr);
-                    //diverr.id = 'error' + i++;
-                });
-                let newText = textBuilder.build();
-                txtdiv.innerHTML = "";
-                txtdiv.appendChild(newText);
             } catch (error) {
                 console.log(error);
             }
