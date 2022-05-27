@@ -66,29 +66,23 @@ submitBtn.onclick = e => {
         showMsg("Passwords doesn't match");
         return;
     }
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", document.URL, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    let xhrBuilder = new XHRBuilder();
-    xhrBuilder.addField('email', email);
-    xhrBuilder.addField('password', passwd);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == XMLHttpRequest.DONE) {
-            try {
-                let data = JSON.parse(xhr.responseText);
-                if (!data.hasOwnProperty('success') || data['success'] !== true) {
-                    if (data.hasOwnProperty('reason') && typeof(data['reason']) === "string") {
-                        showMsg(data['reason']);
-                    } else {
-                        showMsg('Account creation failed!');
-                    }
-                    return;
+    let xhrSender = new XHRSender();
+    xhrSender.addField('email', email);
+    xhrSender.addField('password', passwd);
+    xhrSender.send(document.URL, function (xhr) {
+        try {
+            let data = JSON.parse(xhr.responseText);
+            if (!data.hasOwnProperty('success') || data['success'] !== true) {
+                if (data.hasOwnProperty('reason') && typeof (data['reason']) === "string") {
+                    showMsg(data['reason']);
+                } else {
+                    showMsg('Account creation failed!');
                 }
-                showMsg('Account created. You will receive an account activation link to your email', true);
-            } catch (error) {
-                showMsg('Something went wrong! Please try again.');
+                return;
             }
+            showMsg('Account created. You will receive an account activation link to your email', true);
+        } catch (error) {
+            showMsg('Something went wrong! Please try again.');
         }
-    };
-    xhr.send(xhrBuilder.build());
+    });
 }
