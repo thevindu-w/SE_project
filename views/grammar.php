@@ -15,33 +15,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="CSS/grammar.css">
-
-    <style>
-        .red {
-            color: red;
-        }
-
-        .green {
-            color: green;
-        }
-
-        .big {
-            font-size: large;
-        }
-
-        .errspan {
-            font-weight: bold;
-            color: #ff3f66;
-        }
-
-        .txtdiv {
-            border: 1px solid #174966;
-            margin: 0px;
-            padding: 10px;
-            width: 40%;
-            position: relative;
-        }
-    </style>
 </head>
 
 <body>

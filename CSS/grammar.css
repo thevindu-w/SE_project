@@ -92,6 +92,36 @@ body {
     border-radius: 5px;
 }
 
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
+.big {
+    font-size: large;
+}
+
+.errspan {
+    font-weight: bold;
+    color: #ff3f66;
+}
+
+.txtdiv {
+    border: 1px solid #174966;
+    margin: 0px;
+    padding: 10px;
+    width: 40%;
+    position: relative;
+    padding-bottom: 38px;
+}
+
+#txtdiv:focus {
+    outline: none;
+}
+
 /* Popup container - can be anything you want */
 .popup {
     position: relative;

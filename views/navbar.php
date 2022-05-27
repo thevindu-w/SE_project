@@ -19,30 +19,31 @@ $isLogged = isset($_SESSION['logged_in']) && $_SESSION['logged_in'];
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <!-- button to index page -->
                 <?php if ($isLogged) {
-                    if ($title == "Home") {
-                        echo '<li class="nav-item name-link" align="center" style="font-size: large; font-weight: bold; color: #08202c; font-family: serif;">
-                        <a class="nav-link" href="grammar.php">Check Grammar</a></li>';
-                    }
+                    if ($title == "Home") { ?>
+                        <li class="nav-item name-link" align="center" style="font-size: large; font-weight: bold; color: #08202c; font-family: serif;">
+                            <a class="nav-link" href="grammar.php">Check Grammar</a>
+                        </li>
+                <?php }
                 } ?>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <!-- button login -->
                 <?php if (!$isLogged) {
-                    if ($title == "Sign Up" || $title == "Activation" || $title == "Home") {
-                        echo '<li class="nav-item" align="center" ><a class="btn btn-blue" aria-current="page" href="login.php">Login</a></li>';
-                    }
-                } ?>
-                <!-- button signup -->
-                <?php if (!$isLogged) {
-                    if ($title == "Login" || $title == "Activation" || $title == "Home") {
-                        echo '<li class="nav-item" align="center" ><a class="btn btn-blue" aria-current="page" href="signup.php">Signup</a></li>';
-                    }
-                } ?>
-                <!-- button logout -->
-                <?php if ($isLogged) {
-                    if ($title == "Multi-Grammar" || $title == "Home") {
-                        echo '<li class="nav-item" align="center" ><a class="btn btn-black" aria-current="page" href="/login.php?logout=1">Logout</a></li>';
-                    }
+                    if ($title == "Sign Up" || $title == "Activation" || $title == "Home") { ?>
+                        <li class="nav-item" align="center"><a class="btn btn-blue" aria-current="page" href="login.php">Login</a></li>
+                <?php }
+                }
+                // button signup
+                if (!$isLogged) {
+                    if ($title == "Login" || $title == "Activation" || $title == "Home") { ?>
+                        <li class="nav-item" align="center"><a class="btn btn-blue" aria-current="page" href="signup.php">Signup</a></li>
+                <?php }
+                }
+                // button logout
+                if ($isLogged) {
+                    if ($title == "Multi-Grammar" || $title == "Home") { ?>
+                        <li class="nav-item" align="center"><a class="btn btn-black" aria-current="page" href="/login.php?logout=1">Logout</a></li>
+                <?php }
                 } ?>
             </ul>
         </div>
