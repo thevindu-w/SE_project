@@ -179,6 +179,20 @@ document.getElementById('imgbtn').onclick = e => {
     xhr.send(formData);
 };
 
+let aud = null;
+
+let toggle = b => {
+    let speakBtn = document.getElementById('speakbtn');
+    let stopBtn = document.getElementById('stopbtn');
+    if (b) {
+        speakBtn.hidden = true;
+        stopBtn.hidden = false;
+    } else {
+        stopBtn.hidden = true;
+        speakBtn.hidden = false;
+    }
+}
+
 document.getElementById('speakbtn').onclick = e => {
     e.preventDefault();
     let lang = document.getElementById('lang').value;
@@ -197,24 +211,37 @@ document.getElementById('speakbtn').onclick = e => {
                 let blob = new Blob([this.response], {
                     type: 'audio/mpeg'
                 });
-                let aud = document.createElement("audio");
-                aud.style = "display: none";
-                document.body.appendChild(aud);
+                if (aud != null) {
+                    aud.pause();
+                    aud.remove();
+                }
+                aud = document.createElement("audio");
                 let url = window.URL.createObjectURL(blob);
                 aud.src = url;
                 aud.onload = evt => {
                     URL.revokeObjectURL(url);
                 };
                 aud.onended = evt => {
-                    document.body.removeChild(aud);
+                    toggle(false);
+                    aud.remove();
                 }
                 aud.play();
+                toggle(true);
             } else {
                 console.log("error");
             }
         }
     };
     xhr.send(builder.build());
+};
+
+document.getElementById('stopbtn').onclick = e => {
+    e.preventDefault();
+    if (aud != null) {
+        aud.pause();
+        aud.remove();
+        toggle(false);
+    }
 };
 
 document.getElementById('copybtn').onclick = e => {
@@ -225,6 +252,13 @@ document.getElementById('copybtn').onclick = e => {
     } else {
         console.log("navigator.clipboard.writeText is false or not available");
     }
+};
+
+// When the user clicks on div, open the popup
+document.getElementById('downbtn').onclick = e => {
+    e.preventDefault();
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
 };
 
 document.getElementById('textbtn').onclick = e => {

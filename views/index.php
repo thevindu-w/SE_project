@@ -51,7 +51,7 @@
     <!-- start page content -->
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col-md">
                 <!-- text area -->
                 <form method="post">
                     <div class="txtdiv" id="txtdiv" contenteditable="true" name="text">
@@ -67,20 +67,33 @@
                         <option value="es-ES">Spanish</option>
                     </select>
                     <button class="btn btn-blue" id="sendbtn">Submit</button>
-                    <button class="btn btn-speak" id="speakbtn"><span class="material-symbols-outlined">volume_up</span></button>
-                    <button class="btn btn-copy" id="copybtn"><span class="material-symbols-outlined">content_copy</span></button>
+                    <div class="button-icon" style="float: right;">
+                        <div class="popup"><button class="btn btn-speak" title="download" id="downbtn"><span class="material-symbols-outlined">download</span></button>
+                            <span class="popuptext" id="myPopup">
+                                <button id="textbtn" class="btn btn-blue btn-down">txt</button>
+                                <button id="pdfbtn" class="btn btn-blue btn-down">pdf</button>
+                            </span>
+                        </div>
+                        <button class="btn btn-speak" title="speak" id="speakbtn"><span class="material-symbols-outlined">volume_up</span></button>
+                        <button class="btn btn-stop" title="speak" id="stopbtn" hidden><span class="material-symbols-outlined">stop</span></button>
+                        <button class="btn btn-copy" title="copy to clipboard" id="copybtn"><span class="material-symbols-outlined">content_copy</span></button>  
+                    </div>
                 </form>
                 <br> <!-- image upload area -->
-                <form method="post" enctype="multipart/form-data">
-                    Select image to extract text:
-                    <input class="upload" type="file" name="fileToUpload" id="fileToUpload">
-                    <br>
-                    <button class="btn btn-img" id="imgbtn">Upload Image</button>
-                </form>
-                <br>
+                <p>Select image to extract text:</p>
+                <div class="button-wrap">
+                    <form method="post" enctype="multipart/form-data">
+                        <label class ="btn-upld" for="upload"> Choose a file</label>
+                        <input id="upload" type="file" name="fileToUpload" id="fileToUpload"><br>
+                        <button class="btn btn-img" id="imgbtn">Upload Image</button>
+                    </form>
+                </div>
             </div>
             <!-- show errors -->
-            <div class="col">
+            <div class="col-md">
+                <div id="msgDiv" class="wrapper wrapper-success text-center">
+                    No errors.
+                </div>
                 <div id="errors">
                 </div>
             </div>
