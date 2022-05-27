@@ -226,3 +226,10 @@ document.getElementById('copybtn').onclick = e => {
         console.log("navigator.clipboard.writeText is false or not available");
     }
 };
+
+// When the user clicks on div, open the popup
+document.getElementById('downbtn').onclick = e => {
+    e.preventDefault();
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+};
