@@ -98,34 +98,38 @@ class ErrorDivCreator {
     }
 }
 
+const txtdiv = document.getElementById('txtdiv');
+const langSelect = document.getElementById('lang');
+
 document.getElementById('sendbtn').onclick = e => {
     e.preventDefault();
 
-    let txtdiv = document.getElementById('txtdiv');
-    let errdiv = document.getElementById('errors');
-    let text = txtdiv.innerText;//.replace('\n', ' ');
-    let lang = document.getElementById('lang').value;
+    const errdiv = document.getElementById('errors');
+    const noErrdiv = document.getElementById('msgDiv');
+    noErrdiv.hidden = true;
+    let text = txtdiv.innerText.trim();
+    let lang = langSelect.value;
 
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", document.URL, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    let xhrBuilder = new XHRBuilder();
-    xhrBuilder.addField('lang', lang);
-    xhrBuilder.addField('text', text);
-    xhr.onreadystatechange = () => {
-        if (xhr.readyState == XMLHttpRequest.DONE) {
-            try {
-                let data = JSON.parse(xhr.responseText);
-                let textBuilder = new TextBuilder(text);
-                let errDivCreator = new ErrorDivCreator(text);
-                { // clean errors div
-                    let chld = errdiv.lastElementChild;
-                    while (chld) {
-                        errdiv.removeChild(chld);
-                        chld = errdiv.lastElementChild;
-                    }
-                }
-                //let i = 0;
+    if (!text) return;
+
+    // clean errors div
+    let chld = errdiv.lastElementChild;
+    while (chld) {
+        errdiv.removeChild(chld);
+        chld = errdiv.lastElementChild;
+    }
+
+    let xhrSender = new XHRSender();
+    xhrSender.addField('lang', lang);
+    xhrSender.addField('text', text);
+    xhrSender.send(document.URL, function (xhr) {
+        try {
+            let data = JSON.parse(xhr.responseText);
+            let textBuilder = new TextBuilder(text);
+            let errDivCreator = new ErrorDivCreator(text);
+            if (data.length == 0) {
+                noErrdiv.hidden = false;
+            } else {
                 data.forEach(err_info => {
                     textBuilder.addError(err_info.offset, err_info.length);
                     let offset = err_info.offset;
@@ -133,32 +137,26 @@ document.getElementById('sendbtn').onclick = e => {
                     let options = err_info.hasOwnProperty('correct') ? err_info.correct : [];
                     let reason = err_info.hasOwnProperty('description') ? err_info.description : undefined;
                     let diverr = errDivCreator.createDiv(offset, length, options, reason);
-                    /*diverr.innerText = 'error: ' + err_info.offset + ' ' + err_info.length;
-                    let iter = i;
-                    diverr.onclick = e => {
-                        let bspan = document.getElementById('bspan' + iter);
-                        bspan.classList.add('big');
-                    };*/
                     errdiv.appendChild(diverr);
-                    //diverr.id = 'error' + i++;
                 });
                 let newText = textBuilder.build();
                 txtdiv.innerHTML = "";
                 txtdiv.appendChild(newText);
-            } catch (error) {
-                console.log(error);
             }
+        } catch (error) {
+            console.log(error);
         }
-    };
-    xhr.send(xhrBuilder.build());
+    });
 }
 
 document.getElementById('imgbtn').onclick = e => {
     e.preventDefault();
-    let lang = document.getElementById('lang').value;
+    let lang = langSelect.value;
+    let file = document.getElementById("fileToUpload").files[0]
+    if (!file) return;
     let formData = new FormData();
     formData.append("lang", lang);
-    formData.append("fileToUpload", document.getElementById("fileToUpload").files[0]);
+    formData.append("fileToUpload", file);
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "/image.php");
@@ -179,50 +177,121 @@ document.getElementById('imgbtn').onclick = e => {
     xhr.send(formData);
 };
 
+let aud = null;
+
+let toggle = b => {
+    let speakBtn = document.getElementById('speakbtn');
+    let stopBtn = document.getElementById('stopbtn');
+    if (b) {
+        speakBtn.hidden = true;
+        stopBtn.hidden = false;
+    } else {
+        stopBtn.hidden = true;
+        speakBtn.hidden = false;
+    }
+}
+
 document.getElementById('speakbtn').onclick = e => {
     e.preventDefault();
-    let lang = document.getElementById('lang').value;
-    let text = document.getElementById('txtdiv').innerText;
-    let builder = new XHRBuilder();
-    builder.addField('text', text);
-    builder.addField('lang', lang);
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "/speak.php", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.responseType = 'blob';
-    xhr.onreadystatechange = async function () {
-        if (xhr.readyState == XMLHttpRequest.DONE) {
+    let lang = langSelect.value;
+    let text = txtdiv.innerText.trim();
+
+    if (!text) return;
+
+    let xhrSender = new XHRSender();
+    xhrSender.addField('lang', lang);
+    xhrSender.addField('text', text);
+    xhrSender.send("/speak.php", function (xhr) {
+        try {
             let cont_type = xhr.getResponseHeader('Content-Type');
             if (cont_type === 'audio/mpeg') {
-                let blob = new Blob([this.response], {
+                let blob = new Blob([xhr.response], {
                     type: 'audio/mpeg'
                 });
-                let aud = document.createElement("audio");
-                aud.style = "display: none";
-                document.body.appendChild(aud);
+                if (aud != null) {
+                    aud.pause();
+                    aud.remove();
+                }
+                aud = document.createElement("audio");
                 let url = window.URL.createObjectURL(blob);
                 aud.src = url;
                 aud.onload = evt => {
                     URL.revokeObjectURL(url);
                 };
                 aud.onended = evt => {
-                    document.body.removeChild(aud);
+                    toggle(false);
+                    aud.remove();
                 }
                 aud.play();
+                toggle(true);
             } else {
                 console.log("error");
             }
+        } catch (error) {
+            console.log(error);
         }
-    };
-    xhr.send(builder.build());
+    }, 'blob');
+};
+
+document.getElementById('stopbtn').onclick = e => {
+    e.preventDefault();
+    if (aud != null) {
+        aud.pause();
+        aud.remove();
+        toggle(false);
+    }
 };
 
 document.getElementById('copybtn').onclick = e => {
     e.preventDefault();
-    let text = document.getElementById('txtdiv').innerText;
+    let text = txtdiv.innerText.trim();
+    if (!text) return;
+
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).catch(reason => { console.log("You should allow clipboard access"); });
     } else {
         console.log("navigator.clipboard.writeText is false or not available");
     }
 };
+
+// When the user clicks on div, open the popup
+document.getElementById('downbtn').onclick = e => {
+    e.preventDefault();
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+};
+
+document.getElementById('textbtn').onclick = e => {
+    e.preventDefault();
+    let text = txtdiv.innerText.trim();
+    if (!text) return;
+
+    let element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', 'multigrammar.txt');
+    element.click();
+}
+
+document.getElementById('pdfbtn').onclick = e => {
+    e.preventDefault();
+    let text = txtdiv.innerText.trim();
+    if (!text) return;
+
+    let xhrSender = new XHRSender();
+    xhrSender.addField('text', text);
+    xhrSender.send("/pdf.php", function (xhr) {
+        let cont_type = xhr.getResponseHeader('Content-Type');
+        if (cont_type === 'application/pdf') {
+            let blob = new Blob([xhr.response], { type: 'application/pdf' });
+            let a = document.createElement("a");
+            a.target = '_blank';
+            let url = window.URL.createObjectURL(blob);
+            a.href = url;
+            a.download = 'multigrammar.pdf';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        } else {
+            console.log('PDF download error');
+        }
+    }, 'blob');
+}

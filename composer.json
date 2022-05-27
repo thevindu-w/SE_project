@@ -1,6 +1,7 @@
 {
     "require": {
         "thiagoalessio/tesseract_ocr": "^2.12",
-        "phpmailer/phpmailer": "^6.6"
+        "phpmailer/phpmailer": "^6.6",
+        "tecnickcom/tcpdf": "^6.4"
     }
 }

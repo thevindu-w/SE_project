@@ -10,7 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mkdir('tmp', 0777, true);
     }
 
-    $fname = "tmp/audio.mp3";
+    $fname = $_SERVER['DOCUMENT_ROOT'] . "/tmp/audio.mp3";
+
+    while (file_exists($fname)) {
+        $i = rand(0, PHP_INT_MAX);
+        $fname = $_SERVER['DOCUMENT_ROOT'] . "/tmp/audio$i.mp3";
+    }
 
     $out = fopen($fname, "wb");
     if ($out == FALSE) {
@@ -56,4 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
     die();
+} else {
+    header('Location: /index.php');
 }
