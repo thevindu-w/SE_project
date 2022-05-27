@@ -75,7 +75,7 @@
                             </span>
                         </div>
                         <button class="btn btn-speak" title="speak" id="speakbtn"><span class="material-symbols-outlined">volume_up</span></button>
-                        <button class="btn btn-stop" title="speak" id="stopbtn" hidden><span class="material-symbols-outlined">stop</span></button>
+                        <button class="btn btn-stop" title="stop" id="stopbtn" hidden><span class="material-symbols-outlined">stop</span></button>
                         <button class="btn btn-copy" title="copy to clipboard" id="copybtn"><span class="material-symbols-outlined">content_copy</span></button>  
                     </div>
                 </form>
@@ -83,8 +83,8 @@
                 <p>Select image to extract text:</p>
                 <div class="button-wrap">
                     <form method="post" enctype="multipart/form-data">
-                        <label class ="btn-upld" for="upload"> Choose a file</label>
-                        <input id="upload" type="file" name="fileToUpload" id="fileToUpload"><br>
+                        <label class ="btn-upld" for="fileToUpload"> Choose a file</label>
+                        <input  id="fileToUpload" type="file" name="fileToUpload"><br>
                         <button class="btn btn-img" id="imgbtn">Upload Image</button>
                     </form>
                 </div>
