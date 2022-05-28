@@ -5,6 +5,13 @@ checkAuth();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $text = $_POST['text'];
     $lang = $_POST['lang'];
+    
+    $text = preg_replace('/\\s+/', ' ', $text);
+    if (strlen($text)>1000){
+        header('Content-Type: application/json');
+        echo json_encode(['reason' => 'Text is longer than 1000 characters']);
+        die();
+    }
 
     if (!file_exists('tmp')) {
         mkdir('tmp', 0777, true);
