@@ -1,0 +1,263 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #ecf0f3;
+}
+
+.btn {
+    box-shadow: none;
+    border-radius: 25px;
+    margin: 5px 5px;
+    box-shadow: 3px 3px 3px #b1b1b1;
+    letter-spacing: 1.3px;
+    font-size: small;
+}
+
+.btn-blue {
+    width: 80px;
+    height: 30px;
+    margin: 5px 0px 5px 6px;
+    background-color: #03A9F4;
+    color: #fff; 
+}
+
+.btn-copy, .btn-speak, .btn-stop {
+    width: 32px;
+    height: 32px;
+    margin: auto 1px 1px 6px;
+    background-color: rgb(151, 151, 151);
+    color: #fff;
+    padding: 3px 0px 0px 1px;
+}
+
+.btn-white {
+    background-color: #fff;
+}
+
+.btn-black {
+    background-color: rgb(151, 151, 151);
+    font-weight: normal;
+}
+
+.btn-img {
+    width: 140px;
+    height: 30px;
+    background-color: #03A9F4;
+    color: #fff;
+    margin: 5px 0px;
+}
+
+.txtdiv {
+    min-width: 100%;
+    min-height: 100px;
+    margin: 80px auto;
+    object-fit: cover;
+    padding: 40px 30px 30px 30px;
+    background-color: #ecf0f3;
+    border-radius: 10px;
+    box-shadow: 10px 10px 15px #cbced1, -5px -5px 8px #fff;
+}
+
+.dropdown {
+    background-color: #ecf0f3;
+    color: black;
+    border-radius: 10px; 
+    box-shadow: 8px 8px 10px #cbced1;
+    font-size: small;
+}
+
+.wrapper {
+    max-width: 400px;
+    min-height: 80px;
+    margin: 10px auto;
+    padding: 15px 20px 15px 20px;
+    background-color: #ecf0f3;
+    border-radius: 10px;
+    box-shadow: 10px 10px 15px #cbced1;
+}
+
+.up-input {
+    border: 1px dashed #aaa;
+    width: 278px;
+    max-width: 90%;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
+.big {
+    font-size: large;
+}
+
+.errspan {
+    font-weight: bold;
+    color: #ff3f66;
+}
+
+.txtdiv {
+    border: 1px solid #174966;
+    margin: 0px;
+    padding: 10px;
+    width: 40%;
+    position: relative;
+    padding-bottom: 38px;
+}
+
+#txtdiv:focus {
+    outline: none;
+}
+
+/* Popup container - can be anything you want */
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+  
+/* The actual popup */
+.popup .popuptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: #ecf0f3;
+    color: #fff;
+    text-align: center;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -96px;
+    border-radius: 15px;
+    box-shadow: 10px 10px 15px #cbced1;
+}
+  
+/* Popup arrow */
+.popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #ecf0f3 transparent transparent transparent;
+}
+  
+/* Toggle this class - hide and show the popup */
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+  
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+  
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}
+
+.wrapper-success {
+    min-height: 5px;
+    margin: 25px auto 0px auto;
+    color: white;
+    font-size: small;
+    max-height: 55px;
+    background-color: #00c227;
+    padding: 1px 30px 1px 30px;
+}
+
+/* navbar style */
+.navbar-toggler {
+    width: 26px;
+    height: 20px;
+    position: relative;
+    transition: .5s ease-in-out;
+}
+
+.navbar-toggler,
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    outline: none;
+    box-shadow: none;
+    border: 0;
+}
+
+.navbar-toggler span {
+    margin: 0;
+    padding: 0;
+}
+
+.toggler-icon {
+    display: block;
+    position: absolute;
+    height: 4px;
+    width: 100%;
+    background: #130050;
+    border-radius: 25px;
+    opacity: 1;
+    left: 0;
+    transform: rotate(0deg);
+    transition: .25s ease-in-out;
+}
+
+.middle-bar {
+    margin-top: 0px;
+}
+
+/* open */
+.navbar-toggler .top-bar {
+    margin-top: 0px;
+    transform: rotate(135deg);
+}
+
+.navbar-toggler .middle-bar {
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.navbar-toggler .bottom-bar {
+    margin-top: 0px;
+    transform: rotate(-135deg);
+}
+
+/* close */
+
+.navbar-toggler.collapsed .top-bar {
+    margin-top: -20px;
+    transform: rotate(0deg);
+}
+
+.navbar-toggler.collapsed .middle-bar {
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+.navbar-toggler.collapsed .bottom-bar {
+    margin-top: 20px;
+    transform: rotate(0deg);
+}

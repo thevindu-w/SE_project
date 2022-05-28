@@ -58,5 +58,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(['success' => false]);
     }
 } else {
-    header('Location: /index.php');
+    header('Location: /grammar.php');
 }
