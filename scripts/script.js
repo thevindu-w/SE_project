@@ -257,9 +257,15 @@ document.getElementById('copybtn').onclick = e => {
 // When the user clicks on div, open the popup
 document.getElementById('downbtn').onclick = e => {
     e.preventDefault();
+    e.stopImmediatePropagation(); // prevents document.onclick()
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
 };
+
+document.onclick = e => {
+    let popup = document.getElementById("myPopup");
+    popup.classList.remove("show");
+}
 
 document.getElementById('textbtn').onclick = e => {
     e.preventDefault();
