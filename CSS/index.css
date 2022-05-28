@@ -11,6 +11,22 @@ body {
     background: #ecf0f3;
 }
 
+.logo {
+    width: 80px;
+    margin: auto;
+}
+
+.logo img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0px 0px 3px #5f5f5f,
+        0px 0px 0px 5px #ecf0f3,
+        8px 8px 15px #a7aaa7,
+        -8px -8px 15px #fff;
+}
+
 .btn {
     box-shadow: none;
     border-radius: 25px;
@@ -23,18 +39,9 @@ body {
 .btn-blue {
     width: 80px;
     height: 30px;
-    margin: 5px 0px 5px 6px;
     background-color: #03A9F4;
-    color: #fff; 
-}
-
-.btn-copy, .btn-speak, .btn-stop {
-    width: 32px;
-    height: 32px;
-    margin: 5px 0px 5px 6px;
-    background-color: rgb(151, 151, 151);
     color: #fff;
-    padding: 3px 0px 0px 1px;
+    
 }
 
 .btn-white {
@@ -46,135 +53,8 @@ body {
     font-weight: normal;
 }
 
-.btn-img {
-    width: 140px;
-    height: 30px;
-    background-color: #03A9F4;
-    color: #fff;
-    margin: 5px 30px;
-}
-
-.txtdiv {
-    min-width: 100%;
-    min-height: 80px;
-    margin: 80px auto;
-    object-fit: cover;
-    padding: 40px 30px 30px 30px;
-    background-color: #ecf0f3;
-    border-radius: 10px;
-    box-shadow: 10px 10px 15px #cbced1, -5px -5px 8px #fff;
-}
-
-.dropdown {
-    background-color: #ecf0f3;
-    color: black;
-    border-radius: 10px; 
-    box-shadow: 8px 8px 10px #cbced1;
-    font-size: small;
-}
-
-.wrapper {
-    max-width: 400px;
-    min-height: 80px;
-    margin: 10px auto;
-    padding: 15px 20px 15px 20px;
-    background-color: #ecf0f3;
-    border-radius: 10px;
-    box-shadow: 10px 10px 15px #cbced1;
-}
-
-.button-wrap {
-    display: flex;
-    width: 100%;
-    position: relative;
-}
-
-input[type="file"] {
-    position: absolute;
-    z-index: -1;
-    top: 6px;
-    left: 0px;
-    font-size: 15px;
-    color: rgb(153,153,153);
-}
-
-.btn-upld {
-    display: inline-block;
-    padding: 6px 10px;
-    margin: 5px 0px;
-    cursor: pointer;
-    border-radius: 4px;
-    background-color: #03A9F4;
-    font-size: small;
-    color: #fff;
-}
-
-/* Popup container - can be anything you want */
-.popup {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-  
-/* The actual popup */
-.popup .popuptext {
-    visibility: hidden;
-    width: 200px;
-    background-color: #ecf0f3;
-    color: #fff;
-    text-align: center;
-    padding: 8px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -96px;
-    border-radius: 15px;
-    box-shadow: 10px 10px 15px #cbced1;
-}
-  
-/* Popup arrow */
-.popup .popuptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #ecf0f3 transparent transparent transparent;
-}
-  
-/* Toggle this class - hide and show the popup */
-.popup .show {
-    visibility: visible;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s;
-}
-  
-/* Add animation (fade in the popup) */
-@-webkit-keyframes fadeIn {
-    from {opacity: 0;} 
-    to {opacity: 1;}
-}
-  
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity:1 ;}
-}
-
-.wrapper-success {
-    min-height: 5px;
-    margin: 25px auto 0px auto;
-    color: white;
-    font-size: small;
-    max-height: 55px;
-    background-color: #00c227;
-    padding: 1px 30px 1px 30px;
+.name-link {
+    text-shadow: 3px 3px 3px #b1b1b1;
 }
 
 /* navbar style */
