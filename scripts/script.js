@@ -201,7 +201,7 @@ document.getElementById('speakbtn').onclick = e => {
     let xhrSender = new XHRSender();
     xhrSender.addField('lang', lang);
     xhrSender.addField('text', text);
-    xhrSender.send("/speak.php", function (xhr) {
+    xhrSender.send("/speak.php", async function (xhr) {
         try {
             let cont_type = xhr.getResponseHeader('Content-Type');
             if (cont_type === 'audio/mpeg') {
@@ -224,6 +224,14 @@ document.getElementById('speakbtn').onclick = e => {
                 }
                 aud.play();
                 toggle(true);
+            } else if (cont_type === 'application/json') {
+                let blob = new Blob([xhr.response], { type: 'application/json' });
+                const jsonData = await (new Response(blob)).text();
+                let data = JSON.parse(jsonData);
+                if (data.hasOwnProperty('reason') && data['reason'] && typeof data['reason'] === 'string') {
+                    console.log(data['reason']);
+                    return;
+                }
             } else {
                 console.log("error");
             }
@@ -257,9 +265,15 @@ document.getElementById('copybtn').onclick = e => {
 // When the user clicks on div, open the popup
 document.getElementById('downbtn').onclick = e => {
     e.preventDefault();
+    e.stopImmediatePropagation(); // prevents document.onclick()
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
 };
+
+document.onclick = e => {
+    let popup = document.getElementById("myPopup");
+    popup.classList.remove("show");
+}
 
 document.getElementById('textbtn').onclick = e => {
     e.preventDefault();

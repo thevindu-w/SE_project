@@ -20,7 +20,7 @@ $isLogged = isset($_SESSION['logged_in']) && $_SESSION['logged_in'];
                 <!-- button to index page -->
                 <?php if ($isLogged) {
                     if ($title == "Home") { ?>
-                        <li class="nav-item name-link" align="center" style="font-size: large; font-weight: bold; color: #08202c; font-family: serif;">
+                        <li class="nav-item name-link" align="center" style="font-size: large; font-weight: bold; color: #174966; font-family: Helvetica, sans-serif;">
                             <a class="nav-link" href="grammar.php">Check Grammar</a>
                         </li>
                 <?php }

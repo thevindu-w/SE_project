@@ -40,6 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Print text using writeHTMLCell()
         $pdf->writeHTMLCell(0, 0, '', '', $text, 0, 1, 0, true, '', true);
 
+        if (!file_exists('tmp')) {
+            mkdir('tmp', 0777, true);
+        }
+
         $pdfFilePath = $_SERVER['DOCUMENT_ROOT'] . "/tmp/text.pdf";
         while (file_exists($pdfFilePath)) {
             $i = rand(0,PHP_INT_MAX);
