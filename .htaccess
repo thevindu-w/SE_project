@@ -5,13 +5,13 @@ RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 RewriteRule ^\..*$ - [L,R=404]
+RewriteRule ^$ https://multigrammar.com/index.php [L,R=301]
+RewriteRule !^([^/]+\.php)|((CSS\/)|(Images\/)|(scripts\/)).+$ - [L,R=404]
 RewriteRule ^.*\.html?$ - [L,R=404]
-RewriteRule ^composer.json$ - [L,R=404]
-RewriteRule ^composer.lock$ - [L,R=404]
+RewriteRule ^tmp/.*$ - [L,R=404]
 RewriteRule ^utils/.*$ - [L,R=404]
 RewriteRule ^vendor/.*$ - [L,R=404]
 RewriteRule ^views/.*$ - [L,R=404]
-RewriteRule ^tmp/.*$ - [L,R=404]
 
 <IfModule mod_headers.c>
     Header set X-Frame-Options: "DENY"
