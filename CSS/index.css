@@ -11,6 +11,24 @@ body {
     background: #ecf0f3;
 }
 
+.wrapper {
+    max-width: 600px;
+    min-height: 400px;
+    margin: 20px auto;
+    padding: 18px 25px 25px 18px;
+    background-color: #ecf0f3;
+    border-radius: 15px;
+    box-shadow: 10px 10px 15px #cbced1, -10px -10px 15px #ffffff;
+}
+
+.title {
+    font-family: Inter, sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+    letter-spacing: -0.005em;
+    line-height: 35px;
+}
+
 .logo {
     width: 80px;
     margin: auto;
