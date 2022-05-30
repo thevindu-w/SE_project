@@ -49,29 +49,25 @@
                         <div class="carousel-item active">
                             <img src="Images/img1.jpeg" class="d-block w-100" alt="slide 1">
                             <div class="carousel-caption d-none d-md-block">
-                                <h5 style="color: black;">First slide label</h5>
-                                <p style="color: black;">Some representative placeholder content for the first slide.</p>
+                                <h5 class="name-link" style="color: black;">Correct Your Grammar Errors</h5>
                             </div>
                         </div>
                         <div class="carousel-item">
                             <img src="Images/img2.jpeg" class="d-block w-100" alt="slide 2">
                             <div class="carousel-caption d-none d-md-block">
-                                <h5 style="color: black;">Second slide label</h5>
-                                <p style="color: black;">Some representative placeholder content for the second slide.</p>
+                                <h5 class="name-link" style="color: black;">Multi-Language</h5>
                             </div>
                         </div>
                         <div class="carousel-item">
                             <img src="Images/img3.jpeg" class="d-block w-100" alt="slide 3">
                             <div class="carousel-caption d-none d-md-block">
-                                <h5 style="color: black;">Third slide label</h5>
-                                <p style="color: black;">Some representative placeholder content for the third slide.</p>
+                                <h5 class="name-link" style="color: black;">Extract Text from Images</h5>
                             </div>
                         </div>
                         <div class="carousel-item">
                             <img src="Images/img4.jpeg" class="d-block w-100" alt="slide 4">
                             <div class="carousel-caption d-none d-md-block">
-                                <h5 style="color: black;">Fourth slide label</h5>
-                                <p style="color: black;">Some representative placeholder content for the fourth slide.</p>
+                                <h5 class="name-link" style="color: black;">Additional Features</h5>
                             </div>
                         </div>
                     </div>
