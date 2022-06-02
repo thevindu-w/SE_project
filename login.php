@@ -4,7 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['logout'])) {
     $_SESSION['logged_in'] = false;
     $_SESSION['target'] = null;
     session_write_close();
-    header('Location: /login.php');
+    header('Location: /index.php');
     die();
 }
 session_start();

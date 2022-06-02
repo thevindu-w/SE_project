@@ -3,69 +3,75 @@ require_once('utils/auth.php');
 checkAuth();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $text = $_POST['text'];
-    $lang = $_POST['lang'];
-    
-    $text = preg_replace('/\\s+/', ' ', $text);
-    if (strlen($text)>1000){
-        header('Content-Type: application/json');
-        echo json_encode(['reason' => 'Text is longer than 1000 characters']);
-        die();
-    }
+    if (isset($_POST['text']) && isset($_POST['lang']) && $_POST['text'] && $_POST['lang']) {
+        require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/maps.php');
+        if (!in_array($_POST['lang'], array_keys(LANG_SPEAK), true)) {
+            die();
+        }
+        $lang = LANG_SPEAK[$_POST['lang']];
+        
+        $text = $_POST['text'];
+        if (strlen($text) > 1024) {
+            die(); // too long text
+        }
 
-    if (!file_exists('tmp')) {
-        mkdir('tmp', 0777, true);
-    }
+        $text = preg_replace('/\\s+/', ' ', $text);
 
-    $fname = $_SERVER['DOCUMENT_ROOT'] . "/tmp/audio.mp3";
+        if (!file_exists('tmp')) {
+            mkdir('tmp', 0777, true);
+        }
 
-    while (file_exists($fname)) {
-        $i = rand(0, PHP_INT_MAX);
-        $fname = $_SERVER['DOCUMENT_ROOT'] . "/tmp/audio$i.mp3";
-    }
+        $fname = $_SERVER['DOCUMENT_ROOT'] . "/tmp/audio.mp3";
 
-    $out = fopen($fname, "wb");
-    if ($out == FALSE) {
-        die();
-    }
+        while (file_exists($fname)) {
+            $i = rand(0, PHP_INT_MAX);
+            $fname = $_SERVER['DOCUMENT_ROOT'] . "/tmp/audio$i.mp3";
+        }
 
-    $curl = curl_init();
+        $out = fopen($fname, "wb");
+        if ($out == FALSE) {
+            die();
+        }
 
-    curl_setopt_array($curl, [
-        CURLOPT_URL => "https://texttospeech.responsivevoice.org/v1/text:synthesize?text=" . urlencode($text) . '&lang=' . urlencode($lang) . '&engine=g1&name=&pitch=0.5&rate=0.4&volume=1&key=0POmS5Y2&gender=female',
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 10,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "GET",
-        CURLOPT_FILE => $out,
-        CURLOPT_HTTPHEADER => [
-            "Host: texttospeech.responsivevoice.org",
-        ],
-    ]);
+        $curl = curl_init();
 
-    $response = curl_exec($curl);
-    $error = curl_error($curl);
+        curl_setopt_array($curl, [
+            CURLOPT_URL => "https://texttospeech.responsivevoice.org/v1/text:synthesize?text=" . urlencode($text) . '&lang=' . urlencode($lang) . '&engine=g1&name=&pitch=0.5&rate=0.4&volume=1&key=0POmS5Y2&gender=female',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 10,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_FILE => $out,
+            CURLOPT_HTTPHEADER => [
+                "Host: texttospeech.responsivevoice.org",
+            ],
+        ]);
 
-    curl_close($curl);
-    fclose($out);
+        $response = curl_exec($curl);
+        $error = curl_error($curl);
 
-    if ($error) {
-        die();
-    }
+        curl_close($curl);
+        fclose($out);
 
-    if (file_exists($fname)) {
-        header('Content-Description: File Transfer');
-        header('Content-Type: audio/mpeg');
-        header('Content-Transfer-Encoding: binary');
-        header('Content-Length: ' . filesize($fname));
-        ob_clean();
-        flush();
-        readfile($fname);
-        unlink($fname);
-        exit;
+        if ($error) {
+            if (file_exists($fname)) unlink($fname);
+            die();
+        }
+
+        if (file_exists($fname)) {
+            header('Content-Description: File Transfer');
+            header('Content-Type: audio/mpeg');
+            header('Content-Transfer-Encoding: binary');
+            header('Content-Length: ' . filesize($fname));
+            ob_clean();
+            flush();
+            readfile($fname);
+            unlink($fname);
+            exit;
+        }
     }
     die();
 } else {
