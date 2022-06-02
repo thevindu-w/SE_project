@@ -4,7 +4,7 @@
 <?php $title = 'Multi-Grammar'; ?>
 
 <head>
-    <title><?php echo $title ?></title>
+    <title><?php echo htmlspecialchars($title, ENT_QUOTES | ENT_HTML401, 'utf-8'); ?></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -43,7 +43,7 @@
                             </div>
                             <button class="btn btn-speak" title="speak" id="speakbtn"><span class="material-symbols-outlined">volume_up</span></button>
                             <button class="btn btn-stop" title="stop" id="stopbtn" hidden><span class="material-symbols-outlined">stop</span></button>
-                            <button class="btn btn-copy" title="copy to clipboard" id="copybtn"><span class="material-symbols-outlined">content_copy</span></button>  
+                            <button class="btn btn-copy" title="copy to clipboard" id="copybtn"><span class="material-symbols-outlined">content_copy</span></button>
                         </div>
                     </div>
                     <br>
@@ -55,14 +55,18 @@
                     <!-- language selection -->
                     Language:
                     <select class="dropdown" id="lang" name="lang">
-                        <option value="en-US">English</option>
-                        <option value="fr-FR">French</option>
-                        <option value="es-ES">Spanish</option>
+                        <?php
+                        require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/maps.php');
+                        foreach (LANG_VIEW as $lang => $name) { ?>
+                            <option value="<?php echo htmlspecialchars($lang, ENT_QUOTES, 'utf-8'); ?>"><?php echo htmlspecialchars($name, ENT_QUOTES | ENT_HTML401, 'utf-8'); ?></option>
+                        <?php
+                        }
+                        ?>
                     </select>
                     <button class="btn btn-blue" id="imgbtn">Upload</button>
                     <button class="btn btn-blue" id="sendbtn">Check</button>
                 </form>
-                
+
             </div>
             <!-- show errors -->
             <div class="col-md">
