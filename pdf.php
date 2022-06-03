@@ -49,11 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             mkdir('tmp', 0777, true);
         }
 
-        $pdfFilePath = $_SERVER['DOCUMENT_ROOT'] . "/tmp/text.pdf";
-        while (file_exists($pdfFilePath)) {
+        do {
             $i = rand(0, PHP_INT_MAX);
             $pdfFilePath = $_SERVER['DOCUMENT_ROOT'] . "/tmp/text$i.pdf";
-        }
+        } while (file_exists($pdfFilePath));
+
         $pdf->Output($pdfFilePath, 'F');
         header('Content-Type: application/pdf');
         header("Content-Disposition: attachment;");
