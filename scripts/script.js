@@ -165,7 +165,11 @@ document.getElementById('imgbtn').onclick = e => {
             try {
                 let data = JSON.parse(this.response);
                 if (!data.hasOwnProperty('success') || data['success'] !== true || !data.hasOwnProperty('text')) {
-                    console.log('text extraction failed');
+                    let errMsg = 'text extraction failed';
+                    if (data.hasOwnProperty('reason') || data['reason']){
+                        errMsg = data['reason'];
+                    }
+                    console.log(errMsg);
                     return;
                 }
                 document.getElementById("txtdiv").innerText = data['text'];
@@ -204,9 +208,9 @@ document.getElementById('speakbtn').onclick = e => {
     xhrSender.send("/speak.php", async function (xhr) {
         try {
             let cont_type = xhr.getResponseHeader('Content-Type');
-            if (cont_type === 'audio/mpeg') {
+            if (cont_type === 'audio/mpeg' || cont_type === 'audio/x-wav') {
                 let blob = new Blob([xhr.response], {
-                    type: 'audio/mpeg'
+                    type: cont_type
                 });
                 if (aud != null) {
                     aud.pause();

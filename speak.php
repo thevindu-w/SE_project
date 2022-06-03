@@ -2,68 +2,95 @@
 require_once('utils/auth.php');
 checkAuth();
 
+function getNonExistingFileName($ext): string
+{
+    do {
+        $i = rand(0, PHP_INT_MAX);
+        $fname = $_SERVER['DOCUMENT_ROOT'] . "/tmp/audio$i.$ext";
+    } while (file_exists($fname));
+    return $fname;
+}
+
+function picoTTS($lang, $text): ?string
+{
+    if (strlen($text) > 8192) return null;
+    $fname = getNonExistingFileName('wav');
+    $cmd = 'pico2wave -l ' . escapeshellarg($lang) . ' -w ' . escapeshellarg($fname) . ' ' . escapeshellarg($text);
+    $out = [];
+    exec($cmd, $out, $res_code);
+
+    if (!file_exists($fname) || $res_code != 0) {
+        if (file_exists($fname)) unlink($fname);
+        return null;
+    }
+    return $fname;
+}
+
+function externalTTS($lang, $text): ?string
+{
+    if (strlen($text) > 1024) return null;
+    $fname = getNonExistingFileName('mp3');
+    $out = fopen($fname, "wb");
+    if ($out == FALSE) {
+        return null;
+    }
+
+    $curl = curl_init();
+
+    curl_setopt_array($curl, [
+        CURLOPT_URL => "https://texttospeech.responsivevoice.org/v1/text:synthesize?text=" . urlencode($text) . '&lang=' . urlencode($lang) . '&engine=g1&name=&pitch=0.5&rate=0.4&volume=1&key=0POmS5Y2&gender=female',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 10,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_FILE => $out,
+        CURLOPT_HTTPHEADER => [
+            "Host: texttospeech.responsivevoice.org",
+        ],
+    ]);
+
+    $response = curl_exec($curl);
+    $error = curl_error($curl);
+
+    curl_close($curl);
+    fclose($out);
+
+    if ($error) {
+        if (file_exists($fname)) unlink($fname);
+        return null;
+    }
+    return $fname;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['text']) && isset($_POST['lang']) && $_POST['text'] && $_POST['lang']) {
         require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/maps.php');
-        if (!in_array($_POST['lang'], array_keys(LANG_SPEAK), true)) {
-            die();
-        }
-        $lang = LANG_SPEAK[$_POST['lang']];
-        
         $text = $_POST['text'];
-        if (strlen($text) > 1024) {
-            die(); // too long text
-        }
-
         $text = preg_replace('/\\s+/', ' ', $text);
 
         if (!file_exists('tmp')) {
             mkdir('tmp', 0777, true);
         }
 
-        $fname = $_SERVER['DOCUMENT_ROOT'] . "/tmp/audio.mp3";
-
-        while (file_exists($fname)) {
-            $i = rand(0, PHP_INT_MAX);
-            $fname = $_SERVER['DOCUMENT_ROOT'] . "/tmp/audio$i.mp3";
+        $fname = null;
+        // first try pico tts
+        if (in_array($_POST['lang'], array_keys(LANG_TTS_PICO), true)) {
+            $lang = LANG_TTS_PICO[$_POST['lang']];
+            -$fname = picoTTS($lang, $text);
         }
 
-        $out = fopen($fname, "wb");
-        if ($out == FALSE) {
-            die();
+        // if pico tts was unsuccessful, try external tts
+        if (!($fname && file_exists($fname)) && in_array($_POST['lang'], array_keys(LANG_TTS_EXT), true)) {
+            $lang = LANG_TTS_EXT[$_POST['lang']];
+            $fname = externalTTS($lang, $text);
         }
 
-        $curl = curl_init();
-
-        curl_setopt_array($curl, [
-            CURLOPT_URL => "https://texttospeech.responsivevoice.org/v1/text:synthesize?text=" . urlencode($text) . '&lang=' . urlencode($lang) . '&engine=g1&name=&pitch=0.5&rate=0.4&volume=1&key=0POmS5Y2&gender=female',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 10,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_FILE => $out,
-            CURLOPT_HTTPHEADER => [
-                "Host: texttospeech.responsivevoice.org",
-            ],
-        ]);
-
-        $response = curl_exec($curl);
-        $error = curl_error($curl);
-
-        curl_close($curl);
-        fclose($out);
-
-        if ($error) {
-            if (file_exists($fname)) unlink($fname);
-            die();
-        }
-
-        if (file_exists($fname)) {
+        if ($fname && file_exists($fname)) {
             header('Content-Description: File Transfer');
-            header('Content-Type: audio/mpeg');
+            header('Content-Type: audio/x-wav');
             header('Content-Transfer-Encoding: binary');
             header('Content-Length: ' . filesize($fname));
             ob_clean();
