@@ -3,4 +3,6 @@ tesseract-ocr-eng
 tesseract-ocr-fra
 tesseract-ocr-spa
 libarchive13
+
+:repo:deb http://archive.ubuntu.com/ubuntu focal multiverse
 libttspico-utils
