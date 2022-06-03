@@ -11,6 +11,23 @@ body {
     background: #ecf0f3;
 }
 
+.wrapper {
+    max-width: 600px;
+    min-height: 400px;
+    margin: 20px auto;
+    padding: 18px 25px 25px 18px;
+    background-color: #ecf0f3;
+    border-radius: 15px;
+    box-shadow: 10px 10px 15px #cbced1, -10px -10px 15px #ffffff;
+}
+
+.title {
+    font-family: Inter, sans-serif;
+    font-weight: bold;
+    letter-spacing: -0.005em;
+    line-height: 35px;
+}
+
 .logo {
     width: 80px;
     margin: auto;
@@ -41,7 +58,15 @@ body {
     height: 30px;
     background-color: #03A9F4;
     color: #fff;
-    
+}
+
+.btn-try {
+    width: 150px;
+    height: 40px;
+    background-color: #03A9F4;
+    color: #fff;
+    font-size: large;
+    font-weight: bold;
 }
 
 .btn-white {
@@ -55,6 +80,16 @@ body {
 
 .name-link {
     text-shadow: 3px 3px 3px #b1b1b1;
+}
+
+.slide {
+    max-height: 80%;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+}
+
+.d-block {
+    border-radius: 10px;
 }
 
 /* navbar style */

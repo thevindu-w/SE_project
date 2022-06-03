@@ -2,24 +2,37 @@
 require_once('utils/auth.php');
 checkAuth();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $text = $_POST['text'];
-    $lang = $_POST['lang'];
-
-    if (!file_exists('tmp')) {
-        mkdir('tmp', 0777, true);
-    }
-
-    $fname = $_SERVER['DOCUMENT_ROOT'] . "/tmp/audio.mp3";
-
-    while (file_exists($fname)) {
+function getNonExistingFileName($ext): string
+{
+    do {
         $i = rand(0, PHP_INT_MAX);
-        $fname = $_SERVER['DOCUMENT_ROOT'] . "/tmp/audio$i.mp3";
-    }
+        $fname = $_SERVER['DOCUMENT_ROOT'] . "/tmp/audio$i.$ext";
+    } while (file_exists($fname));
+    return $fname;
+}
 
+function picoTTS($lang, $text): ?string
+{
+    if (strlen($text) > 8192) return null;
+    $fname = getNonExistingFileName('wav');
+    $cmd = 'pico2wave -l ' . escapeshellarg($lang) . ' -w ' . escapeshellarg($fname) . ' ' . escapeshellarg($text);
+    $out = [];
+    exec($cmd, $out, $res_code);
+
+    if (!file_exists($fname) || $res_code != 0) {
+        if (file_exists($fname)) unlink($fname);
+        return null;
+    }
+    return $fname;
+}
+
+function externalTTS($lang, $text): ?string
+{
+    if (strlen($text) > 1024) return null;
+    $fname = getNonExistingFileName('mp3');
     $out = fopen($fname, "wb");
     if ($out == FALSE) {
-        die();
+        return null;
     }
 
     $curl = curl_init();
@@ -46,19 +59,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     fclose($out);
 
     if ($error) {
-        die();
+        if (file_exists($fname)) unlink($fname);
+        return null;
     }
+    return $fname;
+}
 
-    if (file_exists($fname)) {
-        header('Content-Description: File Transfer');
-        header('Content-Type: audio/mpeg');
-        header('Content-Transfer-Encoding: binary');
-        header('Content-Length: ' . filesize($fname));
-        ob_clean();
-        flush();
-        readfile($fname);
-        unlink($fname);
-        exit;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['text']) && isset($_POST['lang']) && $_POST['text'] && $_POST['lang']) {
+        require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/maps.php');
+        $text = $_POST['text'];
+        $text = preg_replace('/\\s+/', ' ', $text);
+
+        if (!file_exists('tmp')) {
+            mkdir('tmp', 0777, true);
+        }
+
+        $fname = null;
+        // first try pico tts
+        if (in_array($_POST['lang'], array_keys(LANG_TTS_PICO), true)) {
+            $lang = LANG_TTS_PICO[$_POST['lang']];
+            -$fname = picoTTS($lang, $text);
+        }
+
+        // if pico tts was unsuccessful, try external tts
+        if (!($fname && file_exists($fname)) && in_array($_POST['lang'], array_keys(LANG_TTS_EXT), true)) {
+            $lang = LANG_TTS_EXT[$_POST['lang']];
+            $fname = externalTTS($lang, $text);
+        }
+
+        if ($fname && file_exists($fname)) {
+            header('Content-Description: File Transfer');
+            header('Content-Type: audio/x-wav');
+            header('Content-Transfer-Encoding: binary');
+            header('Content-Length: ' . filesize($fname));
+            ob_clean();
+            flush();
+            readfile($fname);
+            unlink($fname);
+            exit;
+        }
     }
     die();
 } else {

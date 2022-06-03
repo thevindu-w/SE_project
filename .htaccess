@@ -5,18 +5,18 @@ RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 RewriteRule ^\..*$ - [L,R=404]
+RewriteRule ^$ https://%{HTTP_HOST}/index.php [L,R=301]
+RewriteRule !^([^/]+\.php)|((CSS\/)|(Images\/)|(scripts\/)).+$ - [L,R=404]
 RewriteRule ^.*\.html?$ - [L,R=404]
-RewriteRule ^composer.json$ - [L,R=404]
-RewriteRule ^composer.lock$ - [L,R=404]
+RewriteRule ^tmp/.*$ - [L,R=404]
 RewriteRule ^utils/.*$ - [L,R=404]
 RewriteRule ^vendor/.*$ - [L,R=404]
 RewriteRule ^views/.*$ - [L,R=404]
-RewriteRule ^tmp/.*$ - [L,R=404]
 
 <IfModule mod_headers.c>
     Header set X-Frame-Options: "DENY"
     Header set X-XSS-Protection: "1; mode=block"
-    Header set Content-Security-Policy "script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net; connect-src 'self'; frame-src 'self'; form-action 'self'; object-src 'self';"
+    Header set Content-Security-Policy "script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net; connect-src 'self'; frame-src 'none'; form-action 'self'; object-src 'none';"
     Header set X-Content-Type-Options: "nosniff"
-    Header edit Set-Cookie ^(.*)$ $1;SameSite=None;Secure
+    Header edit Set-Cookie ^(.*)$ $1;SameSite=Lax
 </IfModule>

@@ -6,6 +6,13 @@ require_once "vendor/autoload.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['text']) && $_POST['text']) {
+        $text = $_POST['text'];
+        if (strlen($text) > 1048576) { // too long text
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'reason' => 'Input text is too long']);
+            die();
+        }
+
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
         // set document information
@@ -35,16 +42,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Add a page
         $pdf->AddPage();
 
-        // Set some content to print
-        $text = $_POST['text'];
         // Print text using writeHTMLCell()
         $pdf->writeHTMLCell(0, 0, '', '', $text, 0, 1, 0, true, '', true);
 
-        $pdfFilePath = $_SERVER['DOCUMENT_ROOT'] . "/tmp/text.pdf";
-        while (file_exists($pdfFilePath)) {
-            $i = rand(0,PHP_INT_MAX);
-            $pdfFilePath = $_SERVER['DOCUMENT_ROOT'] . "/tmp/text$i.pdf";
+        if (!file_exists('tmp')) {
+            mkdir('tmp', 0777, true);
         }
+
+        do {
+            $i = rand(0, PHP_INT_MAX);
+            $pdfFilePath = $_SERVER['DOCUMENT_ROOT'] . "/tmp/text$i.pdf";
+        } while (file_exists($pdfFilePath));
+
         $pdf->Output($pdfFilePath, 'F');
         header('Content-Type: application/pdf');
         header("Content-Disposition: attachment;");
@@ -55,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         unlink($pdfFilePath);
     } else {
         header('Content-Type: application/json');
-        echo json_encode(['success' => false]);
+        echo json_encode(['success' => false, 'reason' => 'No text input provided']);
     }
 } else {
     header('Location: /grammar.php');
