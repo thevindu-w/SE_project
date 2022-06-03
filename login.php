@@ -40,5 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Location: /login.php');
     die();
 } else {
+    header('Unauthorized: /login.php');
     include "views/login.php";
 }

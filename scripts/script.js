@@ -139,10 +139,10 @@ document.getElementById('sendbtn').onclick = e => {
                     let diverr = errDivCreator.createDiv(offset, length, options, reason);
                     errdiv.appendChild(diverr);
                 });
-                let newText = textBuilder.build();
-                txtdiv.innerHTML = "";
-                txtdiv.appendChild(newText);
             }
+            let newText = textBuilder.build();
+            txtdiv.innerHTML = "";
+            txtdiv.appendChild(newText);
         } catch (error) {
             console.log(error);
         }
