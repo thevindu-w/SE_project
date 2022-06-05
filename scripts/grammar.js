@@ -183,10 +183,10 @@ document.getElementById('imgbtn').onclick = e => {
 
 let aud = null;
 
-let toggle = b => {
+let toggle = playing => {
     let speakBtn = document.getElementById('speakbtn');
     let stopBtn = document.getElementById('stopbtn');
-    if (b) {
+    if (playing) {
         speakBtn.hidden = true;
         stopBtn.hidden = false;
     } else {

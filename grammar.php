@@ -4,7 +4,7 @@ checkAuth();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if (isset($_POST['text']) && isset($_POST['lang']) && $_POST['text'] && $_POST['lang']) {
-		require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/maps.php');
+		require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/languages.php');
 		if (!in_array($_POST['lang'], array_keys(LANG_GRAMMAR), true)) {
 			die();
 		}

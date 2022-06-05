@@ -7,14 +7,14 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 }
 session_write_close();
 
-require_once('utils/dbcon.php');
+require_once('utils/databaseConnection.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $status = ['success' => false];
     if (isset($_POST['email']) && isset($_POST['password']) && $_POST['email'] && $_POST['password']) {
         $email = $_POST['email'];
         $password = $_POST['password'];
-        $dbcon = DatabaseConn::get_conn();
-        $token = $dbcon != null ? $dbcon->requestAccount($email, $password, 3600) : null;
+        $dbConnection = DatabaseConnection::getConnection();
+        $token = $dbConnection != null ? $dbConnection->requestAccount($email, $password, 3600) : null;
         if ($token != null && $token != '0') {
             require_once 'utils/mail.php';
             $protocol = 'http://';
@@ -46,8 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_GET['email']) && isset($_GET['token']) && $_GET['email'] && $_GET['token']) {
         $email = $_GET['email'];
         $token = $_GET['token'];
-        $dbcon = DatabaseConn::get_conn();
-        if ($dbcon->activateAccount($email, $token)) {
+        $dbConnection = DatabaseConnection::getConnection();
+        if ($dbConnection->activateAccount($email, $token)) {
             include "views/accountActivated.php";
         } else {
             include "views/activationFailed.php";

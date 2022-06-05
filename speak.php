@@ -16,8 +16,8 @@ function picoTTS($lang, $text): ?string
     if (strlen($text) > 8192) return null;
     $fname = getNonExistingFileName('wav');
     $cmd = 'pico2wave -l ' . escapeshellarg($lang) . ' -w ' . escapeshellarg($fname) . ' ' . escapeshellarg($text);
-    $out = [];
-    exec($cmd, $out, $res_code);
+    $output = [];
+    exec($cmd, $output, $res_code);
 
     if (!file_exists($fname) || $res_code != 0) {
         if (file_exists($fname)) unlink($fname);
@@ -30,8 +30,8 @@ function externalTTS($lang, $text): ?string
 {
     if (strlen($text) > 1024) return null;
     $fname = getNonExistingFileName('mp3');
-    $out = fopen($fname, "wb");
-    if ($out == FALSE) {
+    $outfile = fopen($fname, "wb");
+    if ($outfile == FALSE) {
         return null;
     }
 
@@ -46,7 +46,7 @@ function externalTTS($lang, $text): ?string
         CURLOPT_TIMEOUT => 10,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "GET",
-        CURLOPT_FILE => $out,
+        CURLOPT_FILE => $outfile,
         CURLOPT_HTTPHEADER => [
             "Host: texttospeech.responsivevoice.org",
         ],
@@ -56,7 +56,7 @@ function externalTTS($lang, $text): ?string
     $error = curl_error($curl);
 
     curl_close($curl);
-    fclose($out);
+    fclose($outfile);
 
     if ($error) {
         if (file_exists($fname)) unlink($fname);
@@ -67,7 +67,7 @@ function externalTTS($lang, $text): ?string
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['text']) && isset($_POST['lang']) && $_POST['text'] && $_POST['lang']) {
-        require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/maps.php');
+        require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/languages.php');
         $text = $_POST['text'];
         $text = preg_replace('/\\s+/', ' ', $text);
 
@@ -75,11 +75,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             mkdir('tmp', 0777, true);
         }
 
-        $fname = null;
+        $fname = null; //file name of generated audio file
+
         // first try pico tts
         if (in_array($_POST['lang'], array_keys(LANG_TTS_PICO), true)) {
             $lang = LANG_TTS_PICO[$_POST['lang']];
-            -$fname = picoTTS($lang, $text);
+            $fname = picoTTS($lang, $text);
         }
 
         // if pico tts was unsuccessful, try external tts

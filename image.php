@@ -3,7 +3,7 @@ require_once('utils/auth.php');
 checkAuth();
 
 require_once "vendor/autoload.php";
-require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/maps.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/languages.php');
 
 use thiagoalessio\TesseractOCR\TesseractOCR;
 
@@ -26,8 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if (isset($_FILES["fileToUpload"]) && isset($_FILES["fileToUpload"]["tmp_name"]) && $_FILES["fileToUpload"]["tmp_name"]) {
         // Check if image file is a actual image or fake image
-        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-        if ($check !== false) {
+        $checkImage = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+        if ($checkImage !== false) {
             $text = (new TesseractOCR($_FILES["fileToUpload"]["tmp_name"]))->lang($language)->run();
             if ($text) {
                 $text = preg_replace('/\\s+/', ' ', $text);

@@ -16,12 +16,12 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 session_write_close();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require_once('utils/dbcon.php');
+    require_once('utils/databaseConnection.php');
     if (isset($_POST['email']) && isset($_POST['password']) && $_POST['email'] && $_POST['password']) {
         $email = $_POST['email'];
         $password = $_POST['password'];
-        $dbcon = DatabaseConn::get_conn();
-        if ($dbcon != null && $dbcon->auth($email, $password)) {
+        $dbConnection = DatabaseConnection::getConnection();
+        if ($dbConnection != null && $dbConnection->auth($email, $password)) {
             session_start();
             $_SESSION['logged_in'] = true;
             $target = '/grammar.php';

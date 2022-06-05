@@ -56,7 +56,7 @@
                     Language:
                     <select class="dropdown" id="lang" name="lang">
                         <?php
-                        require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/maps.php');
+                        require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/languages.php');
                         foreach (LANG_VIEW as $lang => $name) { ?>
                             <option value="<?php echo htmlspecialchars($lang, ENT_QUOTES, 'utf-8'); ?>"><?php echo htmlspecialchars($name, ENT_QUOTES | ENT_HTML401, 'utf-8'); ?></option>
                         <?php
@@ -80,7 +80,7 @@
     </div>
 
     <script src="/scripts/common.js"></script>
-    <script src="/scripts/script.js"></script>
+    <script src="/scripts/grammar.js"></script>
 </body>
 
 </html>

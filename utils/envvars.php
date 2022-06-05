@@ -2,13 +2,13 @@
 function getEnvVars(array $vars): array
 {
     if (file_exists(__DIR__ . '/.env')) {
-        $envvars = parse_ini_file('.env');
-        if (!$envvars) return [];
-        return $envvars;
+        $envVars = parse_ini_file('.env');
+        if (!$envVars) return [];
+        return $envVars;
     }
-    $envvars = [];
+    $envVars = [];
     foreach ($vars as $var) {
-        $envvars[$var] = getenv($var);
+        $envVars[$var] = getenv($var);
     }
-    return $envvars;
+    return $envVars;
 }

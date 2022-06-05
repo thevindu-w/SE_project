@@ -8,7 +8,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
 function sendmail(string $email, string $subject, string $message, string $imgPath = null): bool
 {
-    require_once('envvars.php');
+    require_once('envVars.php');
     $mail_config = getEnvVars(['MAIL_SENDER', 'MAIL_PASSWORD']);
     $sender = $mail_config['MAIL_SENDER'];
     $password = $mail_config['MAIL_PASSWORD'];
