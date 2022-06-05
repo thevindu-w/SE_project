@@ -136,16 +136,16 @@
                     <h1 class="title" style="margin-left: 10px; font-size: 18px">Additional Features:</h1>
                     <ul style="margin-left: 10px; margin-right: 10px; font-size: 14px; font-family: Inter, sans-serif;">
                         <li>
-                            Text to Speach -
-                            <p>When pressed on the Speaker button below the text box when pressed, the entered text in the text box will be read aloud.</p>
+                            Text to Speech -
+                            <p>Users can listen to text in the text area.</p>
                         </li>
                         <li>
                             Copy to Clipboard -
-                            <p>When pressed on the Speaker button below the text box when pressed, the entered text in the text box will be read aloud.</p>
+                            <p>Users copy the text in text area to clipboard</p>
                         </li>
                         <li>
                             Download -
-                            <p>Download</p>
+                            <p>Users can download the text in text area as .pdf file or .txt file</p>
                         </li>
                     </ul>
                 </div>
