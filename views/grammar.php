@@ -4,7 +4,7 @@
 <?php $title = 'Multi-Grammar'; ?>
 
 <head>
-    <title><?php echo htmlspecialchars($title, ENT_QUOTES | ENT_HTML401, 'utf-8'); ?></title>
+    <title><?php echo htmlspecialchars($title, ENT_QUOTES | ENT_HTML5, 'utf-8'); ?></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -58,7 +58,7 @@
                         <?php
                         require_once($_SERVER['DOCUMENT_ROOT'] . '/utils/languages.php');
                         foreach (LANG_VIEW as $lang => $name) { ?>
-                            <option value="<?php echo htmlspecialchars($lang, ENT_QUOTES, 'utf-8'); ?>"><?php echo htmlspecialchars($name, ENT_QUOTES | ENT_HTML401, 'utf-8'); ?></option>
+                            <option value="<?php echo htmlspecialchars($lang, ENT_QUOTES, 'utf-8'); ?>"><?php echo htmlspecialchars($name, ENT_QUOTES | ENT_HTML5, 'utf-8'); ?></option>
                         <?php
                         }
                         ?>
