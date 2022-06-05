@@ -138,7 +138,7 @@
                         <ul style="margin-left: 10px; margin-right: 10px; font-size: 14px; font-family: Inter, sans-serif;">
                             <li>
                                 Text to Speech -
-                                <p>Users can listen to text in the text area.</p>
+                                <p>Users can listen to text in the text area</p>
                             </li>
                             <li>
                                 Copy to Clipboard -
