@@ -8,7 +8,7 @@ $isLogged = isset($_SESSION['logged_in']) && $_SESSION['logged_in'];
     <div class="container-fluid">
         <!-- navbar brand -->
         <a class="navbar-brand" href="index.php" style="padding: 2px 2px; font-weight: bold; font-size: x-large; color: #174966; font-family: Helvetica, sans-serif;">
-            <img src="Images/logo.webp" alt="Avatar Logo" style="width:35px; object-fit: cover; margin: 1px; border-radius: 50%; box-shadow: 0px 0px 3px #5f5f5f, 0px 0px 0px 5px #ecf0f3, 8px 8px 15px #a7aaa7, -8px -8px 15px #fff;" class="rounded-pill"> &nbsp;&nbsp;Multi-Grammar
+            <img src="Images/logo.webp" alt="Avatar Logo" style="width:35px; height: 35px; object-fit: cover; margin: 1px; border-radius: 50%; box-shadow: 0px 0px 3px #5f5f5f, 0px 0px 0px 5px #ecf0f3, 8px 8px 15px #a7aaa7, -8px -8px 15px #fff;" class="rounded-pill"> &nbsp;&nbsp;Multi-Grammar
         </a>
         <button class="navbar-toggler collapsed d-flex d-lg-none flex-column justify-content-around" type="button" data-bs-toggle="collapse" data-bs-target="#navbarcontent" aria-controls="navbarcontent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="toggler-icon top-bar"></span>

@@ -51,31 +51,30 @@ body {
     box-shadow: 3px 3px 3px #b1b1b1;
     letter-spacing: 1.3px;
     font-size: small;
+    font-weight: bold;
 }
 
 .btn-blue {
     width: 80px;
     height: 30px;
     background-color: #03A9F4;
-    color: #fff;
+    color: rgb(0, 0, 0);
 }
 
 .btn-try {
     width: 150px;
     height: 40px;
     background-color: #03A9F4;
-    color: #fff;
+    color: rgb(0, 0, 0);
     font-size: large;
-    font-weight: bold;
 }
 
 .btn-white {
-    background-color: #fff;
+    background-color: rgb(0, 0, 0);
 }
 
 .btn-black {
     background-color: rgb(151, 151, 151);
-    font-weight: normal;
 }
 
 .name-link {

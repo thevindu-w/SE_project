@@ -48,8 +48,8 @@
                     </div>
                     <br>
                     <!-- image upload area -->
-                    Select image to extract text:
                     <form method="post" enctype="multipart/form-data">
+                        <label>Select image to extract text:</label>
                         <input class="up-input" id="fileToUpload" type="file" name="fileToUpload" accept="image/*"><br>
                     </form>
                     <!-- language selection -->

@@ -18,6 +18,7 @@ body {
     box-shadow: 3px 3px 3px #b1b1b1;
     letter-spacing: 1.3px;
     font-size: small;
+    font-weight: bold;
 }
 
 .btn-blue {
@@ -25,7 +26,7 @@ body {
     height: 30px;
     margin: 5px 0px 5px 6px;
     background-color: #03A9F4;
-    color: #fff; 
+    color: rgb(0, 0, 0); 
 }
 
 .btn-copy, .btn-speak, .btn-stop {
@@ -33,7 +34,7 @@ body {
     height: 32px;
     margin: auto 1px 1px 6px;
     background-color: rgb(151, 151, 151);
-    color: #fff;
+    color: rgb(0, 0, 0);
     padding: 3px 0px 0px 1px;
 }
 
@@ -43,14 +44,13 @@ body {
 
 .btn-black {
     background-color: rgb(151, 151, 151);
-    font-weight: normal;
 }
 
 .btn-img {
     width: 140px;
     height: 30px;
     background-color: #03A9F4;
-    color: #fff;
+    color: rgb(0, 0, 0);
     margin: 5px 0px;
 }
 
