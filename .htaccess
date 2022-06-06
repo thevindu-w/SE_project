@@ -20,3 +20,17 @@ RewriteRule ^views/.*$ - [L,R=404]
     Header set X-Content-Type-Options: "nosniff"
     Header edit Set-Cookie ^(.*)$ $1;SameSite=Lax
 </IfModule>
+
+<FilesMatch "\.(?i:gif|jpe?g|png|ico)$">
+  <IfModule mod_headers.c>
+    Header set Cache-Control "max-age=172800, public, must-revalidate"
+  </IfModule>
+</FilesMatch>
+
+<IfModule mod_expires.c>  
+    ExpiresActive on
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/webp "access 1 month"
+    ExpiresByType text/css "access 1 month"
+    ExpiresByType application/javascript "access 7 days"
+</IfModule>
