@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $replaceStr = ['ACTIVATE_LINK' => $activate_link];
             // the message
             $msg = strtr($msgTemplate, $replaceStr);
-            $status = sendmail($email, "Account Activation", $msg, $_SERVER['DOCUMENT_ROOT'] . '/Images/logo.png');
+            $status = sendmail($email, "Account Activation", $msg, $_SERVER['DOCUMENT_ROOT'] . '/Images/logo.webp');
             if ($status) {
                 $status = ['success' => true];
             } else {

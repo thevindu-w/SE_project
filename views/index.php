@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" href="Images/logo.png">
+    <link rel="shortcut icon" href="Images/logo.webp">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
@@ -47,25 +47,25 @@
                     <!-- slides -->
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="Images/img1.jpeg" class="d-block w-100" alt="slide 1">
+                            <img src="Images/img1.webp" class="d-block w-100" alt="slide 1">
                             <div class="carousel-caption d-none d-md-block">
                                 <h5 class="name-link" style="color: black;">Correct Your Grammar Errors</h5>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img src="Images/img2.jpeg" class="d-block w-100" alt="slide 2">
+                            <img src="Images/img2.webp" class="d-block w-100" alt="slide 2">
                             <div class="carousel-caption d-none d-md-block">
                                 <h5 class="name-link" style="color: black;">Multi-Language</h5>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img src="Images/img3.jpeg" class="d-block w-100" alt="slide 3">
+                            <img src="Images/img3.webp" class="d-block w-100" alt="slide 3">
                             <div class="carousel-caption d-none d-md-block">
                                 <h5 class="name-link" style="color: black;">Extract Text from Images</h5>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img src="Images/img4.jpeg" class="d-block w-100" alt="slide 4">
+                            <img src="Images/img4.webp" class="d-block w-100" alt="slide 4">
                             <div class="carousel-caption d-none d-md-block">
                                 <h5 class="name-link" style="color: black;">Additional Features</h5>
                             </div>
