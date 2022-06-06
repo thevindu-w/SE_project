@@ -4,6 +4,12 @@ let passwdInput = document.getElementById('password');
 let cnfpasswdInput = document.getElementById('cnfpassword');
 let msgDiv = document.getElementById('msgDiv');
 
+/**
+ * Prevents a form from submittiog when enter key is pressed. Instead,
+ * it sets the keyboard focus to next form input field.
+ * If the field is the last input field of the form, triggers the onclick
+ * of the submit button.
+ */
 function keyPressFn(e, nxt) {
     if (e.keyCode === 13) {
         e.preventDefault();
@@ -28,6 +34,11 @@ cnfpasswdInput.onkeydown = event => {
     keyPressFn(event, '');
 }
 
+/**
+ * Shows a success or error message to user.
+ * 
+ * If success is true, shows a success message. Otherwise, shows an error message
+ */
 function showMsg(msg, success = false) {
     msgDiv.classList.remove('wrapper-error');
     msgDiv.classList.remove('wrapper-success');
@@ -41,6 +52,11 @@ function showMsg(msg, success = false) {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
 }
 
+/**
+ * Check if a string is empty
+ * 
+ * Returns true if string is empty, and false otherwise.
+ */
 function isEmpty(str) {
     return (!str || str.length === 0);
 }

@@ -1,4 +1,10 @@
 <?php
+/**
+ * Gets the environment variables. If the utils/.env exists, get environment
+ * variables from .env. Otherwise, get variables from getenv function
+ * @param array $vars The required environment variable names.
+ * @return array An associative array containing the environment variable name=>value
+ */
 function getEnvVars(array $vars): array
 {
     if (file_exists(__DIR__ . '/.env')) {

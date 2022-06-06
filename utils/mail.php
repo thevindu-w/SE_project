@@ -6,7 +6,15 @@ use PHPMailer\PHPMailer\Exception;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
-function sendmail(string $email, string $subject, string $message, string $imgPath = null): bool
+/**
+ * Sends the account activation email to the user.
+ * @param string $email user's email address.
+ * @param string $subject The subject of the email.
+ * @param string $message The email body.
+ * @param string $logoPath Path to the logo image.
+ * @return bool True if email was successfully sent, false otherwise.
+ */
+function sendmail(string $email, string $subject, string $message, string $logoPath = null): bool
 {
     require_once('envVars.php');
     $mail_config = getEnvVars(['MAIL_SENDER', 'MAIL_PASSWORD']);
@@ -35,8 +43,8 @@ function sendmail(string $email, string $subject, string $message, string $imgPa
         $mail->Body    = $message;
         $mail->AltBody = $message;
 
-        if ($imgPath != null) {
-            $mail->addEmbeddedImage($imgPath, 'logo');
+        if ($logoPath != null) {
+            $mail->addEmbeddedImage($logoPath, 'logo');
         }
 
         return $mail->send();

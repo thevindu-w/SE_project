@@ -1,4 +1,10 @@
 <?php
+/**
+ * Checks if the user is logged in. If the user is logged in,
+ * this function does nothing. If the user is not logged in,
+ * redirects the user to login.
+ * @return void
+ */
 function checkAuth()
 {
     session_start();

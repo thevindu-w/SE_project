@@ -71,6 +71,8 @@ body {
     border-radius: 10px; 
     box-shadow: 8px 8px 10px #cbced1;
     font-size: small;
+    min-width: 80px;
+    padding: 1px;
 }
 
 .wrapper {
@@ -184,10 +186,10 @@ body {
     min-height: 5px;
     margin: 25px auto 0px auto;
     color: white;
-    font-size: small;
+    font-size: medium;
     max-height: 55px;
     background-color: #00c227;
-    padding: 1px 30px 1px 30px;
+    padding: 3px 30px 3px 30px;
 }
 
 /* navbar style */

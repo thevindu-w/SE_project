@@ -2,16 +2,29 @@
 require_once('utils/auth.php');
 checkAuth();
 
-function getNonExistingFileName($ext): string
+/**
+ * Finds a file name with given extension that does not exist in tmp/
+ * @param string $extension file name extension.
+ * @return string non existing file name
+ */
+function getNonExistingFileName(string $extension): string
 {
     do {
         $i = rand(0, PHP_INT_MAX);
-        $fname = $_SERVER['DOCUMENT_ROOT'] . "/tmp/audio$i.$ext";
+        $fname = $_SERVER['DOCUMENT_ROOT'] . "/tmp/audio$i.$extension";
     } while (file_exists($fname));
     return $fname;
 }
 
-function picoTTS($lang, $text): ?string
+/**
+ * Creates a new file containing the audio generated from text in tmp/
+ * This uses pico2wave to generate audio.
+ * @param string $lang language of text.
+ * @param string $text text to be converted to audio.
+ * @return string|null audio file name if successfully generated the
+ * audio, else returns null.
+ */
+function picoTTS(string $lang, string $text): ?string
 {
     if (strlen($text) > 8192) return null;
     $fname = getNonExistingFileName('wav');
@@ -26,7 +39,15 @@ function picoTTS($lang, $text): ?string
     return $fname;
 }
 
-function externalTTS($lang, $text): ?string
+/**
+ * Creates a new file containing the audio generated from text in tmp/
+ * This uses an external TTS service to generate audio.
+ * @param string $lang language of text.
+ * @param string $text text to be converted to audio.
+ * @return string|null audio file name if successfully generated the
+ * audio, else returns null.
+ */
+function externalTTS(string $lang, string $text): ?string
 {
     if (strlen($text) > 1024) return null;
     $fname = getNonExistingFileName('mp3');
