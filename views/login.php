@@ -60,7 +60,7 @@
 
         <div class="text-center fs-6">
             Don't have an account?
-            <a href="signup.php" style="font-size: medium">Sign Up</a>
+            <a href="signup.php" style="font-size: medium; font-weight: bold; color: #0073a9">Sign Up</a>
         </div>
     </div>
     <script src="/scripts/login.js"></script>

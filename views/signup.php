@@ -55,7 +55,7 @@
         </form>
         <div class="text-center fs-6">
             Already have an account?
-            <a href="login.php" style="font-size: medium">Sign In</a>
+            <a href="login.php" style="font-size: medium; font-weight: bold; color: #0073a9">Sign In</a>
         </div>
     </div>
     <script src="/scripts/common.js"></script>
